@@ -1,0 +1,162 @@
+[
+  {
+    "client_id": "solaris-fintech",
+    "brand_name": "Solaris Fintech",
+    "tagline": "Architecting institutional-grade clarity for the decentralized era.",
+    "mission": "Empowering institutions and accredited investors with transparent, audited algorithmic capital infrastructure.",
+    "voice_and_tone": {
+      "primary_attributes": ["Minimalist", "Authoritative", "Transparent", "Analytical", "Precise"],
+      "description": "Solaris speaks with the calm, measured authority of a Tier-1 quantitative institution. We do not hype; we prove. Every statement is supported by math, infrastructure integrity, or regulatory alignment. We avoid crypto buzzwords, hyperbolic enthusiasm, and speculative optimism. Language is spare, active, and direct.",
+      "dos": [
+        "Use active, measured verbs (quantify, engineer, execute, secure, verify).",
+        "Explain complex financial engineering in clear, accessible sentences without dumbing down.",
+        "Emphasize risk parameters, custody models, and architectural transparency.",
+        "Include appropriate compliance framing for forward-looking infrastructure."
+      ],
+      "donts": [
+        "Never use FOMO or urgency tactics (e.g., 'act now', 'don't miss out').",
+        "Never promise, imply, or suggest fixed returns or zero risk.",
+        "Never use retail crypto jargon, memes, or speculative slang.",
+        "Avoid exclamation marks in corporate communications."
+      ]
+    },
+    "forbidden_terms": [
+      "guaranteed",
+      "moon",
+      "easy money",
+      "risk-free",
+      "get rich quick",
+      "100% returns",
+      "crypto bro",
+      "to the moon",
+      "can't lose",
+      "passive wealth",
+      "financial freedom guaranteed"
+    ],
+    "color_palette": {
+      "primary": {
+        "name": "Obsidian Deep",
+        "hex": "#0B0F19",
+        "usage": "Dominant background, executive presentation canvas, primary typography on light surfaces."
+      },
+      "secondary": {
+        "name": "High-Yield Cyan",
+        "hex": "#06B6D4",
+        "usage": "Data highlights, telemetry visualizers, key interaction points, metric callouts."
+      },
+      "neutral_light": {
+        "name": "Pure Titanium",
+        "hex": "#F8FAFC",
+        "usage": "Text on dark backgrounds, high-contrast borders, clean layout structure."
+      },
+      "accent": {
+        "name": "Precision Amber",
+        "hex": "#F59E0B",
+        "usage": "System warnings, latency indicators, state change notifications (used sparingly < 5%)."
+      },
+      "slate_muted": {
+        "name": "Graphite Slate",
+        "hex": "#64748B",
+        "usage": "Secondary data, axis labels, metadata subtitles."
+      }
+    },
+    "visual_identity": {
+      "style": "Minimal brutalism meets precision engineering. Crisp lines, monolithic geometric forms, subtle ambient glassmorphism, matte metallic finishes, and hyper-clean data telemetry.",
+      "lighting": "Architectural daylight, sharp directional key lighting with cool ambient rim highlights (4500K - 5500K). High contrast without muddy shadows.",
+      "composition": "Centered monolithic symmetry or strict rule-of-thirds grid. Generous negative space (minimum 40% empty area). No clutter.",
+      "materials_textures": "Brushed titanium, anti-glare sapphire glass, dark anodized aluminum, micro-perforated server racks, crisp vector waveforms.",
+      "avoid_in_visuals": [
+        "Neon lasers, cheesy coin piles, floating rockets, cartoon mascots, green laser eyes, cluttered charts."
+      ]
+    },
+    "audience_and_channels": {
+      "target_audience": "Chief Financial Officers, hedge fund portfolio managers, sovereign wealth analysts, accredited algorithmic traders.",
+      "channel_guidelines": {
+        "social": "LinkedIn and Twitter/X executive updates. Maximum 2 sentences per paragraph. Data-first charts. No hashtag stuffing (maximum 2 relevant hashtags).",
+        "reports": "Quarterly infrastructure teardowns and audit digests. Monospaced code snippets, LaTeX mathematical formalisms, crisp SVG telemetry.",
+        "ads": "Minimalist typography against Obsidian canvas. Single bold value proposition focusing on uptime, security audits, and capital efficiency."
+      }
+    }
+  },
+  {
+    "client_id": "velvet-apothecary",
+    "brand_name": "Velvet Apothecary",
+    "tagline": "Sensory botanicals wildcrafted for the quiet hours.",
+    "mission": "Restoring intimate harmony between botanical wisdom and skin microbiome through regenerative slow-batch extraction.",
+    "voice_and_tone": {
+      "primary_attributes": ["Poetic", "Warm", "Sensory", "Grounded", "Reverent", "Tactile"],
+      "description": "Velvet Apothecary writes like an intimate handwritten journal in an old greenhouse at dusk. Language is rich with tactile imagery, earthy scents, slow rituals, and deep biological respect. We never shame skin or promote artificial perfection. We celebrate natural aging, circadian cycles, and raw organic textures.",
+      "dos": [
+        "Evoke sensory tactile details (dappled sunlight, chilled amber glass, crushed coriander, velvety resins).",
+        "Frame skincare and wellness as restorative daily rituals rather than quick fixes.",
+        "Honor seasonality, terroir, and botanical sourcing with reverence.",
+        "Use soothing, melodic sentence cadence."
+      ],
+      "donts": [
+        "Never use harsh clinical anti-aging language or medical fear-mongering.",
+        "Never refer to skin flaws, pore erasing, or aggressive chemical stripping.",
+        "Never use buzzwords like 'game-changer', 'bio-hack', or 'miracle cure'.",
+        "Avoid sterile, plastic, or overly corporate phrasing."
+      ]
+    },
+    "forbidden_terms": [
+      "synthetic",
+      "chemical peel",
+      "miracle cure",
+      "instant fix",
+      "clinical grade",
+      "anti-aging miracle",
+      "bleach",
+      "artificial",
+      "pore eraser",
+      "flawless perfection",
+      "toxic ingredients",
+      "erase wrinkles"
+    ],
+    "color_palette": {
+      "primary": {
+        "name": "Crushed Sage",
+        "hex": "#708238",
+        "usage": "Primary brand tint, herbal formulation packaging, organic foliage backgrounds."
+      },
+      "secondary": {
+        "name": "Terracotta Ochre",
+        "hex": "#C86D51",
+        "usage": "Warm clay accents, secondary headlines, ritual ceramic highlights."
+      },
+      "neutral_light": {
+        "name": "Raw Linen",
+        "hex": "#F4F0EA",
+        "usage": "Editorial page background, tactile paper texture, soft negative space."
+      },
+      "accent": {
+        "name": "Deep Botanical Forest",
+        "hex": "#1E2E20",
+        "usage": "Editorial body typography, deep shadow foliage, artisanal seal stamps."
+      },
+      "warm_highlight": {
+        "name": "Sun-Bleached Amber",
+        "hex": "#E8A858",
+        "usage": "Elixir droplet reflections, golden hour sunlight glows."
+      }
+    },
+    "visual_identity": {
+      "style": "Wabi-sabi herbalist sanctuary. Soft film grain (Kodak Portra 400 warmth), macro botanical close-ups showing leaf veins and dew, unglazed ceramic jars, botanical press papers, and linen draping.",
+      "lighting": "Golden hour diffused sunlight through linen curtains, warm dappled forest shade (3000K - 3800K). Soft natural shadows with organic falloff.",
+      "composition": "Asymmetric, organic, breathing layouts. Atmospheric shallow depth-of-field (f/1.8 to f/2.8) drawing touch to botanical droplets and handmade ceramic textures.",
+      "materials_textures": "Handmade deckle-edge paper, dark amber apothecary dropper bottles, raw clay earthenware, wild dried chamomile and lavender sprigs, beeswax wraps.",
+      "avoid_in_visuals": [
+        "Sterile white laboratory counters, neon green plastics, glossy synthetic packaging, airbrushed poreless skin, computer-generated glossy spheres."
+      ]
+    },
+    "audience_and_channels": {
+      "target_audience": "Conscious holistic wellness practitioners, sensitive skin ritualists, botanical perfumery collectors, regenerative lifestyle advocates.",
+      "channel_guidelines": {
+        "social": "Instagram stories and visual moodboards. Rich poetic caption micro-essays, atmospheric audio prompts, soothing visual rhythm.",
+        "packaging": "Recycled cotton paper boxes printed with vegetable inks, debossed botanical sketches, batch-numbered seal stamps.",
+        "newsletters": "Sunday evening letters to the community on seasonal herbal changes, moon phases, and restorative teas."
+      }
+    }
+  }
+]
+
