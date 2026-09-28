@@ -44,8 +44,9 @@ Instead of relying on human copywriters to manually cross-reference 50-page PDF 
 │                              │ │                       │
 │  - solaris-fintech chunks    │ │ - Claude Sonnet       │
 │  - velvet-apothecary chunks  │ │   (Converse API)      │
-│  - Titan V2 / Local Embedder │ │ - Titan Embeddings V2 │
-│    (1024-dimensional)        │ │   (eu-north-1)        │
+│  - lumina-automotive chunks  │ │ - Titan Embeddings V2 │
+│  - aether-gaming chunks      │ │   (eu-north-1)        │
+│  - 20 Chunks (1024-dim)      │ │                       │
 └──────────────────────────────┘ └───────────────────────┘
 ```
 
@@ -101,21 +102,37 @@ Instead of relying on human copywriters to manually cross-reference 50-page PDF 
 
 ---
 
-## 5. Pre-Seeded Brand Case Studies
+## 5. Pre-Seeded Brand Case Studies (4 Archetypes)
 
-The system includes two deeply detailed, contrasting client profiles in [`data/seed_brands.json`](file:///c:/Users/georg/georgiescoding/brandbrain-mcp/data/seed_brands.json):
+The system includes 4 deeply detailed, contrasting client profiles in [`data/seed_brands.json`](file:///c:/Users/georg/georgiescoding/brandbrain-mcp/data/seed_brands.json) spanning divergent industries and regulatory environments:
 
 ### A. Solaris Fintech (`solaris-fintech`)
+- **Domain:** Institutional Wealth & Algorithmic Quantitative Infrastructure.
 - **Philosophy:** Minimal brutalism, quantitative transparency, institutional trust.
 - **Strictly Banned Terms:** `guaranteed`, `moon`, `easy money`, `risk-free`, `get rich quick`, `100% returns`, `crypto bro`, `passive wealth`.
 - **Palette:** Obsidian Deep (`#0B0F19`), High-Yield Cyan (`#06B6D4`), Pure Titanium (`#F8FAFC`).
 - **Visuals:** Architectural daylight (5000K), brushed titanium, sapphire glass, telemetry waveforms.
 
 ### B. Velvet Apothecary (`velvet-apothecary`)
+- **Domain:** Artisanal Botanical Rituals & Clean Beauty.
 - **Philosophy:** Poetic, warm, sensory, grounded, organic restorative botanicals.
 - **Strictly Banned Terms:** `synthetic`, `chemical peel`, `miracle cure`, `instant fix`, `clinical grade`, `bleach`, `flawless perfection`.
 - **Palette:** Crushed Sage (`#708238`), Terracotta Ochre (`#C86D51`), Raw Linen (`#F4F0EA`), Sun-Bleached Amber (`#E8A858`).
 - **Visuals:** Golden hour natural light (3200K), raw linen, deckle-edge paper, unglazed earthenware, shallow depth-of-field f/2.0.
+
+### C. Lumina Automotive (`lumina-automotive`)
+- **Domain:** Scandinavian Solid-State Electric Hypercars.
+- **Philosophy:** Kinetic aerodynamics, wind-tunnel downforce, lightweight carbon monocoque.
+- **Strictly Banned Terms:** `gas guzzler`, `cheap`, `affordable`, `family car`, `range anxiety`, `budget friendly`, `plastic interior`.
+- **Palette:** Nordic Frost (`#E2E8F0`), Electric Cobalt (`#2563EB`), Forged Carbon (`#0F172A`), Kinetic Lime (`#84CC16`).
+- **Visuals:** Nordic twilight (4000K), wet asphalt reflections, laser DRL lightbars, active aero rear wing.
+
+### D. Aether Gaming (`aether-gaming`)
+- **Domain:** Neural-Link AR & Tier-1 Esports Peripherals.
+- **Philosophy:** Zero latency, 8000Hz polling reflex, cast magnesium honeycomb chassis.
+- **Strictly Banned Terms:** `lag`, `casual`, `childish`, `slow`, `pay-to-win`, `toy`, `clunky`, `button masher`.
+- **Palette:** Matte Carbon (`#09090B`), Quantum Magenta (`#E11D48`), Neon Cyan (`#00F0FF`), Void Violet (`#581C87`).
+- **Visuals:** Esports arena tournament lighting, infrared optical sensor prism, haze smoke, neon rim accents.
 
 ---
 

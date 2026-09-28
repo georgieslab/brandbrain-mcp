@@ -157,6 +157,147 @@
         "newsletters": "Sunday evening letters to the community on seasonal herbal changes, moon phases, and restorative teas."
       }
     }
+  },
+  {
+    "client_id": "lumina-automotive",
+    "brand_name": "Lumina Automotive",
+    "tagline": "Pure kinetic aerodynamics sculpted by light.",
+    "mission": "Pioneering solid-state electric performance hypercars through computational fluid dynamics and Scandinavian brutalist architecture.",
+    "voice_and_tone": {
+      "primary_attributes": ["Kinetic", "Aerodynamic", "Architectural", "Visceral", "Uncompromising"],
+      "description": "Lumina speaks with the razor-sharp precision of an aerospace wind tunnel test. We celebrate mechanical honesty, raw downforce physics, and lightweight solid-state engineering. We avoid marketing fluff, hollow eco-virtue signaling, and generic luxury clichés. Prose is muscular, fast, and technically rigorous.",
+      "dos": [
+        "Emphasize downforce coefficients, chassis stiffness, and solid-state cell thermodynamics.",
+        "Highlight tactile engineering materials like exposed forged carbon, titanium wishbones, and cold Nordic glass.",
+        "Use propulsive, dynamic sentence structure that conveys momentum."
+      ],
+      "donts": [
+        "Never use pedestrian automotive terms like 'cheap', 'affordable', or 'family commuter'.",
+        "Never mention 'range anxiety' or apologetic EV compromises.",
+        "Avoid generic eco-buzzwords like 'green lifestyle' or 'eco-warrior'."
+      ]
+    },
+    "forbidden_terms": [
+      "gas guzzler",
+      "cheap",
+      "affordable",
+      "family car",
+      "range anxiety",
+      "economy sedan",
+      "daily commuter",
+      "budget friendly",
+      "green lifestyle",
+      "plastic interior"
+    ],
+    "color_palette": {
+      "primary": {
+        "name": "Nordic Frost",
+        "hex": "#E2E8F0",
+        "usage": "Hypercar exterior body reflections, primary typography on carbon canvas."
+      },
+      "secondary": {
+        "name": "Electric Cobalt",
+        "hex": "#2563EB",
+        "usage": "Aerodynamic flow accents, telemetry interfaces, telemetry calipers."
+      },
+      "dark_base": {
+        "name": "Forged Carbon",
+        "hex": "#0F172A",
+        "usage": "Monocoque undertray, dark cockpit interior, web canvas."
+      },
+      "kinetic_accent": {
+        "name": "Kinetic Lime",
+        "hex": "#84CC16",
+        "usage": "Brembo carbon-ceramic brake calipers, launch control indicators (< 3%)."
+      }
+    },
+    "visual_identity": {
+      "style": "Scandinavian hyper-aerodynamics in twilight. Wet tarmac reflections, razor-thin laser DRL lightbars, computational wind tunnel smoke streamlines, exposed carbon weave, and raindrops slicing across active aero rear wings.",
+      "lighting": "Moody Nordic twilight (4000K), wet asphalt ground reflections, sharp volumetric lightbeams through aerodynamic aero channels.",
+      "composition": "Low-angle dramatic three-quarter front track stance, motion blur background with sharp crystal-clear vehicle focal lock, 16:9 cinematic anamorphic framing.",
+      "materials_textures": "Satin dry carbon fiber, machined 7075 aluminum aero uprights, rain-slicked asphalt, Alcantara dash stitching.",
+      "avoid_in_visuals": [
+        "Sunny family picnics, suburban garages, cartoon renders, cheesy lightning bolts, oversaturated rainbows."
+      ]
+    },
+    "audience_and_channels": {
+      "target_audience": "Motorsport engineers, track-day enthusiasts, high-performance automotive collectors, industrial design purists.",
+      "channel_guidelines": {
+        "social": "Instagram Reels telemetry clips, YouTube engineering documentaries, Twitter lap time benchmarks.",
+        "press": "Technical whitepapers on downforce simulation and solid-state pack thermal conductivity.",
+        "events": "Monolithic Nordic pavilion at Goodwood Festival of Speed and Pebble Beach."
+      }
+    }
+  },
+  {
+    "client_id": "aether-gaming",
+    "brand_name": "Aether Gaming",
+    "tagline": "Zero latency. Pure human reflex.",
+    "mission": "Engineering sub-millisecond optical peripherals and cloud neural frame synthesis for tier-1 esports champions.",
+    "voice_and_tone": {
+      "primary_attributes": ["High-Adrenaline", "Kinetic", "Cybernetic", "Uncompromising", "Visceral"],
+      "description": "Aether writes like the pulse of an esports grand finals tournament overtime round. Fast, hyper-responsive, sharp, and brutally focused on mechanical micro-switches, polling rates, and human neural reaction time. We never treat gaming as a child's toy. We treat it as digital athletics.",
+      "dos": [
+        "Focus on 8000Hz polling rates, optical sensor tracking, zero debounce latency, and magnesium alloy weight reduction.",
+        "Speak directly to competitive reflex, aiming precision, and clutch performance.",
+        "Use punchy, high-impact phrasing with rhythmic urgency."
+      ],
+      "donts": [
+        "Never describe peripherals as 'toys', 'childish', or 'casual play'.",
+        "Never use words like 'laggy', 'clunky', or 'slow'.",
+        "Never promote pay-to-win mechanics or predatory loot mechanics."
+      ]
+    },
+    "forbidden_terms": [
+      "lag",
+      "casual",
+      "childish",
+      "slow",
+      "pay-to-win",
+      "toy",
+      "clunky",
+      "button masher",
+      "cheap plastic",
+      "input delay"
+    ],
+    "color_palette": {
+      "primary": {
+        "name": "Matte Carbon",
+        "hex": "#09090B",
+        "usage": "Magnesium mouse shell, tournament desk canvas, executive dark surfaces."
+      },
+      "secondary": {
+        "name": "Quantum Magenta",
+        "hex": "#E11D48",
+        "usage": "Optical micro-switch accents, critical kill telemetry, DPI state indicator."
+      },
+      "neon_accent": {
+        "name": "Neon Cyan",
+        "hex": "#00F0FF",
+        "usage": "High-velocity rim illumination, sensor optical path highlight."
+      },
+      "dark_purple": {
+        "name": "Void Violet",
+        "hex": "#581C87",
+        "usage": "Subtle arena background gradients, packaging secondary ink."
+      }
+    },
+    "visual_identity": {
+      "style": "Cyberpunk esports arena meets precision aerospace engineering. Dark matte magnesium honeycomb chassis, macro mechanical optical switch actuation, glowing optical glass sensor prisms, atmospheric arena smoke, and neon rim lighting.",
+      "lighting": "Dramatic dual-tone arena lighting (deep Violet and Neon Cyan highlights on dark Matte Carbon surfaces), intense directional key light cutting through arena fog.",
+      "composition": "Extreme macro close-up of optical switches and skeletal honeycomb weight-reduction cutouts, explosive floating exploded-view assembly diagrams.",
+      "materials_textures": "Skeletal cast magnesium, PTFE virgin mouse skates, optical infrared emitter glass, braided paracord cabling.",
+      "avoid_in_visuals": [
+        "Messy teenage bedrooms, cartoon pizza slices, gaudy RGB rainbow cliches, cheap injection-molded glossy plastic."
+      ]
+    },
+    "audience_and_channels": {
+      "target_audience": "Professional esports athletes, competitive FPS ranked climbers, custom keyboard and peripheral enthusiasts.",
+      "channel_guidelines": {
+        "social": "Twitch tournament sponsorships, Discord beta announcements, Twitter clutch replay breakdowns.",
+        "packaging": "Matte black soft-touch boxes with UV gloss circuit traces, magnetic hinge presentation cases.",
+        "streams": "Live latency oscilloscopes proving 0.125ms input delays vs competitors."
+      }
+    }
   }
 ]
-

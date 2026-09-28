@@ -128,6 +128,30 @@ def _detect_forbidden_terms(text: str, client_id: str) -> List[str]:
             "flawless perfection",
             "erase wrinkles",
         ],
+        "lumina-automotive": [
+            "gas guzzler",
+            "cheap",
+            "affordable",
+            "family car",
+            "range anxiety",
+            "economy sedan",
+            "daily commuter",
+            "budget friendly",
+            "green lifestyle",
+            "plastic interior",
+        ],
+        "aether-gaming": [
+            "lag",
+            "casual",
+            "childish",
+            "slow",
+            "pay-to-win",
+            "toy",
+            "clunky",
+            "button masher",
+            "cheap plastic",
+            "input delay",
+        ],
     }
 
     found: List[str] = []
@@ -159,7 +183,7 @@ def retrieve_brand_guidelines(client_id: str, query: str, top_k: int = 3) -> str
         if not all_docs:
             return (
                 f"No guidelines found for client '{client_id}'. "
-                "Available pre-seeded clients: 'solaris-fintech', 'velvet-apothecary'."
+                "Available pre-seeded clients: 'solaris-fintech', 'velvet-apothecary', 'lumina-automotive', 'aether-gaming'."
             )
         results = all_docs[:top_k]
 

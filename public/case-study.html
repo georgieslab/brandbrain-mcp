@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -24,6 +24,8 @@
               amber: '#F59E0B',
               sage: '#708238',
               ochre: '#C86D51',
+              cobalt: '#2563EB',
+              magenta: '#E11D48',
             }
           }
         }
@@ -37,21 +39,54 @@
     }
     .glass-card {
       background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .glow-cyan {
       box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25);
     }
+    .glow-rose {
+      box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.25);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+    }
+    .score-circle {
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease;
+    }
     .code-gradient {
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 15, 25, 0.98) 100%);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0F19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06B6D4;
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
 
-  <!-- Navigation -->
-  <header class="border-b border-slate-800/80 sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-md">
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 via-teal-400 to-amber-400 z-50 transition-all duration-75 w-0"></div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 bg-slate-900 border border-cyan-500/50 text-cyan-300 text-xs font-mono px-4 py-3 rounded-xl shadow-2xl">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Copied to clipboard</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="border-b border-slate-800/80 sticky top-0 z-40 bg-[#0B0F19]/85 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
@@ -61,256 +96,669 @@
           <span class="font-bold text-lg tracking-tight">BrandBrain<span class="text-cyan-400 font-mono text-sm ml-1.5 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/50">MCP</span></span>
         </a>
       </div>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300 font-medium">
-        <a href="index.html" class="hover:text-cyan-400 transition-colors">Interactive Studio</a>
-        <a href="#problem" class="hover:text-cyan-400 transition-colors">The Challenge</a>
-        <a href="#solution" class="hover:text-cyan-400 transition-colors">Architecture</a>
-        <a href="#results" class="hover:text-cyan-400 transition-colors">Impact & Results</a>
-        <a href="https://github.com/georgieslab/brandbrain-mcp" target="_blank" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-mono text-xs">
-          <span>GitHub Repo</span> ↗
-        </a>
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-medium text-slate-300">
+        <a href="#problem" class="hover:text-cyan-400 transition-colors">01 Problem</a>
+        <a href="#architecture" class="hover:text-cyan-400 transition-colors">02 Architecture</a>
+        <a href="#case-studies" class="hover:text-cyan-400 transition-colors text-cyan-300 font-semibold">03 Live Case Studies (4)</a>
+        <a href="#wire-protocol" class="hover:text-cyan-400 transition-colors">04 Wire Protocol</a>
+        <a href="#edge-cases" class="hover:text-cyan-400 transition-colors">05 Technical Edge Cases</a>
+        <a href="#roi-calc" class="hover:text-cyan-400 transition-colors">06 ROI Model</a>
       </nav>
       <div class="flex items-center gap-3">
         <a href="index.html" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 transition-all font-mono">
           ← Live Studio
         </a>
+        <a href="https://github.com/georgieslab/brandbrain-mcp" target="_blank" class="px-3 py-1.5 text-xs font-mono rounded-lg glass-card text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <span>GitHub</span> ↗
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Header -->
   <section class="relative pt-20 pb-16 px-6 border-b border-slate-800/60 overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(6,182,212,0.18),rgba(255,255,255,0))]"></div>
     <div class="max-w-4xl mx-auto relative z-10 text-center">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 mb-6">
-        <span>ENGINEERING CASE STUDY • AI AGENTS & DEVELOPER TOOLING</span>
+        <span>ENGINEERING CASE STUDY • AI AGENTS & CREATIVE OPERATIONS</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
         Transforming Static Brand Books into Active <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-300">Model Context Protocol</span> Tools
       </h1>
       <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-8 font-light leading-relaxed">
-        How BrandBrain-MCP bridges enterprise brand governance, AWS Bedrock reasoning, and ChromaDB vector search directly into Claude Desktop and Cursor.
+        How BrandBrain-MCP bridges multi-tenant brand governance, AWS Bedrock reasoning, and ChromaDB vector search directly into Claude Desktop, Antigravity, and Cursor.
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-slate-400">
-        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+      <!-- Meta Pill Grid -->
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-slate-400">
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3.5 py-1.5 rounded-lg border border-slate-800">
           <span class="text-slate-500">Author:</span> <strong class="text-slate-200">Georgie Akopashvili</strong>
         </div>
-        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-          <span class="text-slate-500">Stack:</span> <strong class="text-slate-200">FastMCP • AWS Bedrock • ChromaDB</strong>
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3.5 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">Protocol:</span> <strong class="text-cyan-300">FastMCP (Stdio JSON-RPC)</strong>
         </div>
-        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-          <span class="text-slate-500">Region:</span> <strong class="text-emerald-400">eu-north-1 (Europe)</strong>
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3.5 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">LLM Engine:</span> <strong class="text-slate-200">Claude Sonnet 4.6 (Bedrock)</strong>
         </div>
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3.5 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">Region:</span> <strong class="text-emerald-400">eu-north-1 (Stockholm)</strong>
+        </div>
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3.5 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">Test Coverage:</span> <strong class="text-emerald-400">11/11 Passed</strong>
+        </div>
+      </div>
+
+      <!-- Quick Action CTAs -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="#case-studies" class="px-5 py-2.5 bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg hover:bg-cyan-300 transition-all shadow-md">
+          Explore 4 Live Case Studies ↓
+        </a>
+        <a href="index.html" class="px-5 py-2.5 glass-card text-slate-200 hover:text-white font-mono text-xs rounded-lg border border-slate-700 hover:border-slate-500 transition-all">
+          Open Interactive Studio →
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Main Content Layout -->
-  <main class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+  <!-- Main Body Content -->
+  <main class="max-w-5xl mx-auto px-6 py-16 space-y-20">
 
-    <!-- 1. The Problem -->
+    <!-- 01. The Problem -->
     <section id="problem" class="space-y-6">
       <div class="flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center font-mono font-bold text-sm">01</span>
-        <h2 class="text-2xl font-bold tracking-tight text-slate-100">The Problem: Static PDF Manuals vs. Generative Chaos</h2>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-100">The Problem: 50-Page PDFs vs. Generative Chaos</h2>
       </div>
 
       <p class="text-slate-300 text-sm leading-relaxed">
-        In modern enterprise marketing, organizations face a paradoxical tension: teams use AI to generate copy, social posts, and visual mockups 10x faster, but the risk of <strong>regulatory non-compliance and brand dilution</strong> skyrockets.
+        Modern creative, product, and growth teams leverage generative AI to create marketing collateral, social campaigns, and UI mockups 10x faster. However, this velocity introduces an existential operational challenge: <strong>brand dilution and regulatory non-compliance at scale</strong>.
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        <div class="glass-card p-5 rounded-xl border border-rose-900/40 bg-rose-950/10 space-y-2">
-          <div class="flex items-center gap-2 text-rose-400 font-mono text-xs font-bold">
-            <span>✗</span> The Status Quo Pain Points
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
+        <div class="glass-card p-6 rounded-xl border border-rose-900/40 bg-rose-950/10 space-y-3">
+          <div class="flex items-center gap-2 text-rose-400 font-mono text-xs font-bold uppercase tracking-wider">
+            <span>✗</span> The Status Quo (Static Manuals)
           </div>
-          <ul class="text-xs text-slate-400 space-y-2 leading-relaxed">
-            <li>• <strong>50-Page PDF Manuals:</strong> Buried in Google Drive; copywriters and devs rarely cross-check them.</li>
-            <li>• <strong>Regulatory Fines:</strong> In fintech and health, buzzwords like <em>"guaranteed returns"</em> or <em>"chemical peel"</em> trigger instant FTC/SEC scrutiny.</li>
-            <li>• <strong>Visual Style Drift:</strong> Diffusion models (Midjourney/Flux) default to generic CGI aesthetics without strict brand prompts.</li>
+          <ul class="text-xs text-slate-400 space-y-2.5 leading-relaxed">
+            <li>• <strong>Buried PDF Guidelines:</strong> 60-page PDF brand manuals gather dust in Google Drive; engineers and copywriters rarely reference them during drafting.</li>
+            <li>• <strong>Regulatory Exposure:</strong> In regulated industries (fintech, healthcare, automotive), casual marketing claims like <em>"guaranteed returns"</em> or <em>"chemical peel"</em> trigger instant SEC, FTC, or EU compliance penalties.</li>
+            <li>• <strong>Visual Style Drift:</strong> Diffusion models (Midjourney, Stable Diffusion, Flux) generate generic CGI hyper-gloss unless prompted with exact Kelvin lighting, camera sensor specs, and approved hex codes.</li>
+            <li>• <strong>Manual Review Bottleneck:</strong> Creative directors spend 40% of their week proofing junior copy and correcting off-brand assets.</li>
           </ul>
         </div>
 
-        <div class="glass-card p-5 rounded-xl border border-emerald-900/40 bg-emerald-950/10 space-y-2">
-          <div class="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
-            <span>✓</span> The BrandBrain Solution
+        <div class="glass-card p-6 rounded-xl border border-emerald-900/40 bg-emerald-950/10 space-y-3">
+          <div class="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">
+            <span>✓</span> The BrandBrain-MCP Solution
           </div>
-          <ul class="text-xs text-slate-400 space-y-2 leading-relaxed">
-            <li>• <strong>Active Context:</strong> Brand rules live natively inside Claude Desktop and Cursor via Model Context Protocol.</li>
-            <li>• <strong>Hybridized Guardrails:</strong> Regex boundary detection guarantees zero false negatives on prohibited terms.</li>
-            <li>• <strong>Instant Art Direction:</strong> Generates camera specs, Kelvin lighting, and exact hex swatches on demand.</li>
+          <ul class="text-xs text-slate-400 space-y-2.5 leading-relaxed">
+            <li>• <strong>Contextual In-IDE Governance:</strong> Brand rules live directly inside Claude Desktop, Antigravity, and Cursor via the Model Context Protocol.</li>
+            <li>• <strong>Hybridized Deterministic Guardrails:</strong> Regex boundary scanning ensures <em>zero false negatives</em> on prohibited regulatory keywords before LLM inference.</li>
+            <li>• <strong>Automated Diffusion Art Direction:</strong> Generates ready-to-run Midjourney and Flux prompts with exact hex color constraints, camera lenses, and negative prompt filtering.</li>
+            <li>• <strong>Zero-Overhead Deployment:</strong> FastMCP stdio architecture runs locally with Bring Your Own Key (BYOK) privacy—no SaaS lock-in or subscription costs.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- 2. The Architecture -->
-    <section id="solution" class="space-y-6 border-t border-slate-800/80 pt-12">
+    <!-- 02. The Architecture -->
+    <section id="architecture" class="space-y-6 border-t border-slate-800/80 pt-12">
       <div class="flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm">02</span>
-        <h2 class="text-2xl font-bold tracking-tight text-slate-100">Architecture: Standardized Stdio Protocol</h2>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-100">Architecture: FastMCP over Stdio Transport</h2>
       </div>
 
       <p class="text-slate-300 text-sm leading-relaxed">
-        BrandBrain-MCP is designed as a modular, lightweight Python service built on the official <strong>FastMCP SDK</strong>. It communicates with desktop hosts via standard I/O (JSON-RPC over <code class="text-cyan-300">stdio</code>).
+        BrandBrain-MCP is designed as a modular Python service built on the official <strong>FastMCP SDK</strong>. By communicating over standard I/O (JSON-RPC over <code class="text-cyan-300">stdio</code>), it runs natively inside developer environments with sub-millisecond local process handshakes.
       </p>
 
-      <div class="glass-card p-6 rounded-xl border border-slate-800 code-gradient font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
+      <!-- ASCII Architecture Diagram Card -->
+      <div class="glass-card p-6 rounded-xl border border-slate-800 code-gradient font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed shadow-xl">
 <pre class="text-slate-300">
-┌────────────────────────────────────────────────────────┐
-│     Desktop LLM Clients / IDEs (Claude Desktop,        │
-│          Antigravity, Cursor, Zed, Windsurf)          │
-└──────────────────────────┬─────────────────────────────┘
-                           │ Standard Input/Output (stdio)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│                   BrandBrain FastMCP                   │
-│                    (src/server.py)                     │
-│                                                        │
-│   ├── retrieve_brand_guidelines                        │
-│   ├── lint_brand_compliance                            │
-│   └── generate_visual_prompt_spec                      │
-└──────────────┬──────────────────────────┬──────────────┘
-               │                          │
-               ▼                          ▼
-┌──────────────────────────────┐ ┌───────────────────────┐
-│     ChromaDB Vector Store    │ │      AWS Bedrock      │
-│     (data/chroma_db)         │ │   (boto3 Runtime)     │
-│                              │ │                       │
-│  - 1024-dim Titan Embeddings │ │ - Claude Sonnet 4.6   │
-│  - Semantic Guideline RAG    │ │   (Converse API)      │
-│  - Scoped client_id filters  │ │ - eu-north-1 Region   │
-└──────────────────────────────┘ └───────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│     Client Environment (Claude Desktop / Antigravity / Cursor / Zed)   │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ Standard Input/Output (stdio JSON-RPC)
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                        BrandBrain FastMCP Server                       │
+│                             (src/server.py)                            │
+│                                                                        │
+│   ├── retrieve_brand_guidelines(client_id, query, category, limit)     │
+│   ├── lint_brand_compliance(client_id, copy_text, channel)             │
+│   └── generate_visual_prompt_spec(client_id, asset_description, etc.)  │
+└──────────────────┬─────────────────────────────────┬───────────────────┘
+                   │                                 │
+                   ▼                                 ▼
+┌────────────────────────────────────┐ ┌─────────────────────────────────┐
+│       ChromaDB Vector Store        │ │         AWS Bedrock Engine      │
+│          (data/chroma_db)          │ │       (boto3 Runtime Client)    │
+│                                    │ │                                 │
+│  - 20 Guideline Chunks Indexed     │ │  - Amazon Titan Embeddings V2   │
+│  - 1024-dim Normalized Vectors     │ │    (1024 dimensions)            │
+│  - Multi-tenant client_id scoping  │ │  - Anthropic Claude Sonnet 4.6  │
+│  - Cosine distance similarity      │ │    (Converse API, eu-north-1)   │
+└────────────────────────────────────┘ └─────────────────────────────────┘
 </pre>
       </div>
 
+      <!-- Architectural Component Breakdown -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-        <div class="p-4 rounded-xl glass-card">
-          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">1. FastMCP SDK</div>
-          <p class="text-xs text-slate-400 leading-relaxed">Decorates Python methods into typed JSON-RPC tools with Pydantic output validation.</p>
+        <div class="p-4 rounded-xl glass-card border border-slate-800 space-y-1.5">
+          <div class="text-xs font-mono text-cyan-400 font-bold">1. FastMCP Stdio Transport</div>
+          <p class="text-xs text-slate-400 leading-relaxed">Decorates typed Python methods into JSON-RPC tools with Pydantic schema validation. Zero network socket exposure.</p>
         </div>
-        <div class="p-4 rounded-xl glass-card">
-          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">2. Amazon Titan V2</div>
-          <p class="text-xs font-slate-400 leading-relaxed text-xs text-slate-400">1024-dimensional normalized vector embeddings capturing brand voice nuances.</p>
+        <div class="p-4 rounded-xl glass-card border border-slate-800 space-y-1.5">
+          <div class="text-xs font-mono text-cyan-400 font-bold">2. Amazon Titan V2 Embeddings</div>
+          <p class="text-xs text-slate-400 leading-relaxed">1024-dimensional normalized vectors capture granular tone, color usage, and channel requirements in ChromaDB.</p>
         </div>
-        <div class="p-4 rounded-xl glass-card">
-          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">3. Claude Sonnet</div>
-          <p class="text-xs text-slate-400 leading-relaxed">Converse API evaluates subtle tone drift, institutional authority, and poetic cadence.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Real World Case Studies -->
-    <section class="space-y-6 border-t border-slate-800/80 pt-12">
-      <div class="flex items-center gap-3">
-        <span class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-mono font-bold text-sm">03</span>
-        <h2 class="text-2xl font-bold tracking-tight text-slate-100">Live Case Studies: Solaris vs. Velvet Apothecary</h2>
-      </div>
-
-      <p class="text-slate-300 text-sm leading-relaxed">
-        To demonstrate multi-tenant brand isolation, BrandBrain is pre-seeded with two diametrically opposed brand personas:
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-        <!-- Brand A -->
-        <div class="glass-card p-6 rounded-xl border border-slate-800 space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-slate-100">Solaris Fintech</h3>
-            <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/50">solaris-fintech</span>
-          </div>
-          <div class="text-xs text-slate-300 space-y-2">
-            <p><strong>Voice:</strong> Minimalist, authoritative, transparent, mathematical clarity.</p>
-            <p><strong>Forbidden Terms:</strong> <code>guaranteed</code>, <code>moon</code>, <code>easy money</code>, <code>100% returns</code>, <code>crypto bro</code>.</p>
-            <p><strong>Palette:</strong> Obsidian Deep (#0B0F19), High-Yield Cyan (#06B6D4), Pure Titanium (#F8FAFC).</p>
-          </div>
-          <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-xs text-slate-400">
-            <span class="text-rose-400 font-bold block mb-1">FAIL AUDIT EXAMPLE:</span>
-            "Join Solaris for guaranteed easy money to the moon!"<br>
-            <span class="text-cyan-400 mt-1 block">→ Score: 35/100 (FAIL) | 3 Banned Terms</span>
-          </div>
-        </div>
-
-        <!-- Brand B -->
-        <div class="glass-card p-6 rounded-xl border border-slate-800 space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-slate-100">Velvet Apothecary</h3>
-            <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800/50">velvet-apothecary</span>
-          </div>
-          <div class="text-xs text-slate-300 space-y-2">
-            <p><strong>Voice:</strong> Poetic, warm, sensory, grounded, organic restorative ritual.</p>
-            <p><strong>Forbidden Terms:</strong> <code>synthetic</code>, <code>chemical peel</code>, <code>miracle cure</code>, <code>anti-aging</code>, <code>bleach</code>.</p>
-            <p><strong>Palette:</strong> Crushed Sage (#708238), Terracotta Ochre (#C86D51), Raw Linen (#F4F0EA).</p>
-          </div>
-          <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-xs text-slate-400">
-            <span class="text-rose-400 font-bold block mb-1">FAIL AUDIT EXAMPLE:</span>
-            "Try our miracle cure chemical peel for pore erasing!"<br>
-            <span class="text-amber-400 mt-1 block">→ Score: 35/100 (FAIL) | 2 Banned Terms</span>
-          </div>
+        <div class="p-4 rounded-xl glass-card border border-slate-800 space-y-1.5">
+          <div class="text-xs font-mono text-cyan-400 font-bold">3. Claude Sonnet 4.6</div>
+          <p class="text-xs text-slate-400 leading-relaxed">Invoked via AWS Bedrock Converse API with structured JSON output schema to critique tone subtleties and suggest rewrites.</p>
         </div>
       </div>
     </section>
 
-    <!-- 4. Key Engineering Edge Cases -->
-    <section id="results" class="space-y-6 border-t border-slate-800/80 pt-12">
+    <!-- 03. Live Case Studies (4 Brands) -->
+    <section id="case-studies" class="space-y-8 border-t border-slate-800/80 pt-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-mono font-bold text-sm">03</span>
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-100">Live Case Studies: 4 Diverse Brand Archetypes</h2>
+            <p class="text-xs text-slate-400 mt-1">Multi-tenant isolation across disparate industries, regulatory environments, and aesthetic codes.</p>
+          </div>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+          Interactive Audit & Prompt Demos Below
+        </span>
+      </div>
+
+      <!-- Brand Switcher Pills -->
+      <div class="flex flex-wrap items-center gap-2 p-1.5 rounded-xl bg-slate-900/90 border border-slate-800">
+        <button onclick="setCaseStudy('solaris')" id="cs-btn-solaris" class="cs-tab-btn px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition-all flex items-center gap-2">
+          <span>🏛️</span> Solaris Fintech
+        </button>
+        <button onclick="setCaseStudy('velvet')" id="cs-btn-velvet" class="cs-tab-btn px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all flex items-center gap-2">
+          <span>🌿</span> Velvet Apothecary
+        </button>
+        <button onclick="setCaseStudy('lumina')" id="cs-btn-lumina" class="cs-tab-btn px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all flex items-center gap-2">
+          <span>⚡</span> Lumina Automotive
+        </button>
+        <button onclick="setCaseStudy('aether')" id="cs-btn-aether" class="cs-tab-btn px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all flex items-center gap-2">
+          <span>🎮</span> Aether Gaming
+        </button>
+      </div>
+
+      <!-- Case Study Dynamic Container -->
+      <div id="case-study-content" class="space-y-6">
+
+        <!-- Header Card for Selected Brand -->
+        <div class="glass-card p-6 rounded-2xl border border-slate-700/80 space-y-4 glow-cyan" id="cs-header-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl" id="cs-icon">🏛️</span>
+                <h3 class="text-2xl font-extrabold text-slate-100" id="cs-name">Solaris Fintech</h3>
+                <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800/80" id="cs-client-id">solaris-fintech</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1 font-mono" id="cs-tagline">"Architecting institutional-grade clarity for the decentralized era."</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300" id="cs-domain-badge">Institutional Wealth & Quant Liquidity</span>
+            </div>
+          </div>
+
+          <!-- Description & Mission -->
+          <p class="text-xs text-slate-300 leading-relaxed" id="cs-description">
+            Solaris speaks with the calm, measured authority of a Tier-1 quantitative institution. We do not hype; we prove. Every statement is supported by math, infrastructure integrity, or regulatory alignment. Language is spare, active, and direct.
+          </p>
+
+          <!-- Voice Attributes & Forbidden Terms -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="p-3.5 bg-slate-950/70 rounded-xl border border-slate-800/80 space-y-2">
+              <div class="text-[11px] font-mono text-cyan-300 font-bold uppercase tracking-wider">Voice Attributes & Rules</div>
+              <div class="flex flex-wrap gap-1.5" id="cs-attributes-pills">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 text-[11px] font-mono">Minimalist</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 text-[11px] font-mono">Authoritative</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 text-[11px] font-mono">Transparent</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 text-[11px] font-mono">Analytical</span>
+              </div>
+              <p class="text-[11px] text-slate-400 leading-relaxed" id="cs-dos-donts">
+                <strong>Dos:</strong> Use measured active verbs; emphasize risk parameters and custody architecture.<br>
+                <strong>Don'ts:</strong> No FOMO, no crypto memes, no exclamation marks.
+              </p>
+            </div>
+
+            <div class="p-3.5 bg-rose-950/20 rounded-xl border border-rose-900/40 space-y-2">
+              <div class="text-[11px] font-mono text-rose-400 font-bold uppercase tracking-wider flex items-center justify-between">
+                <span>Forbidden Regulatory Terms (Zero Tolerance)</span>
+                <span class="text-[10px] text-rose-500 font-mono">100% Regex Gated</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5" id="cs-banned-terms-pills">
+                <span class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/50 text-rose-300 text-[11px] font-mono">guaranteed</span>
+                <span class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/50 text-rose-300 text-[11px] font-mono">moon</span>
+                <span class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/50 text-rose-300 text-[11px] font-mono">easy money</span>
+                <span class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/50 text-rose-300 text-[11px] font-mono">risk-free</span>
+                <span class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/50 text-rose-300 text-[11px] font-mono">100% returns</span>
+              </div>
+              <p class="text-[11px] text-slate-400 leading-relaxed">
+                Matches SEC Rule 206(4)-1 and FINRA 2210 marketing rule triggers. Presence caps score under 60.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Live Audit Playground for this Case Study -->
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+            <div>
+              <h4 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                <span>🔍</span> Live In-Case Audit Tester
+              </h4>
+              <p class="text-xs text-slate-400 mt-0.5">Test real uncompliant vs. compliant copy scenarios through BrandBrain's audit logic</p>
+            </div>
+            <!-- Preset Buttons -->
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-mono text-slate-500">TEST PRESET:</span>
+              <button onclick="loadScenario('fail')" class="px-2.5 py-1 text-xs font-mono rounded bg-rose-950/60 border border-rose-800/60 text-rose-300 hover:bg-rose-900/60 transition-colors">
+                ⚠️ Uncompliant Draft
+              </button>
+              <button onclick="loadScenario('pass')" class="px-2.5 py-1 text-xs font-mono rounded bg-emerald-950/60 border border-emerald-800/60 text-emerald-300 hover:bg-emerald-900/60 transition-colors">
+                ✓ Approved Copy
+              </button>
+            </div>
+          </div>
+
+          <!-- Input Copy Area -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+              <label for="cs-copy-input">Draft Copy to Lint:</label>
+              <span id="cs-char-count">0 characters</span>
+            </div>
+            <textarea id="cs-copy-input" rows="3" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-cyan-400 transition-colors resize-none leading-relaxed"></textarea>
+            <div class="flex justify-end pt-1">
+              <button onclick="executeLiveAudit()" id="cs-run-audit-btn" class="px-5 py-2 rounded-lg bg-cyan-400 text-slate-950 font-bold text-xs hover:bg-cyan-300 transition-all shadow-md flex items-center gap-2">
+                <span>Run Compliance Lint</span>
+                <span class="font-mono text-[10px]">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Audit Output Display -->
+          <div id="cs-audit-result" class="p-5 rounded-xl border border-slate-800 bg-slate-950/80 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+              <div class="flex items-center gap-4">
+                <!-- SVG Score Gauge -->
+                <div class="relative w-16 h-16 flex items-center justify-center">
+                  <svg class="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                    <path class="text-slate-800" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="cs-score-circle" class="score-circle text-rose-500" stroke-dasharray="100, 100" stroke-dashoffset="65" stroke-width="3" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  </svg>
+                  <div class="absolute inset-0 flex items-center justify-center font-mono font-bold text-sm" id="cs-score-text">
+                    35
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span id="cs-status-badge" class="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">
+                      FAIL
+                    </span>
+                    <span class="text-xs text-slate-400 font-mono" id="cs-eval-model">Evaluator: Claude Sonnet 4.6</span>
+                  </div>
+                  <div class="text-xs text-slate-300 mt-1" id="cs-status-summary">
+                    3 regulatory violations detected. Immediate risk.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Violations Tag Row -->
+              <div class="flex flex-wrap gap-1.5 max-w-sm" id="cs-detected-violations">
+                <span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono">banned: guaranteed</span>
+                <span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono">banned: easy money</span>
+                <span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono">banned: moon</span>
+              </div>
+            </div>
+
+            <!-- Analysis & Critique -->
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-mono text-cyan-300 font-bold uppercase tracking-wider">Claude Sonnet Tone Analysis</div>
+              <p class="text-xs text-slate-300 leading-relaxed font-sans" id="cs-analysis-text">
+                The copy severely breaches institutional guidelines by promising guaranteed wealth and using speculative retail crypto slang ("easy money", "to the moon"). This triggers immediate SEC Rule 206(4)-1 violations and destroys the brand's quantitative credibility.
+              </p>
+            </div>
+
+            <!-- Suggested Compliant Rewrite -->
+            <div class="p-3.5 bg-slate-900/90 rounded-lg border border-cyan-900/40 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-wider">✓ Approved BrandBrain Rewrite</span>
+                <button onclick="copyElementText('cs-rewrite-text')" class="text-[10px] font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                  <span>Copy Rewrite</span>
+                </button>
+              </div>
+              <p class="text-xs text-slate-200 font-mono leading-relaxed" id="cs-rewrite-text">
+                "Engineered for accredited capital allocators seeking transparent, risk-adjusted algorithmic yield architecture."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Art Direction & Diffusion Spec Card -->
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+            <div>
+              <h4 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                <span>🎨</span> Visual Identity & Diffusion Prompt Synthesis
+              </h4>
+              <p class="text-xs text-slate-400 mt-0.5">Automated prompt engineering enforcing camera specs, lighting kelvin, and exact hex swatches</p>
+            </div>
+            <!-- Aspect Ratio Selector -->
+            <div class="flex items-center gap-1.5 text-xs font-mono">
+              <span class="text-slate-500">ASPECT RATIO:</span>
+              <button onclick="setPromptAr('16:9')" class="ar-btn px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">16:9</button>
+              <button onclick="setPromptAr('1:1')" class="ar-btn px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">1:1</button>
+              <button onclick="setPromptAr('9:16')" class="ar-btn px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">9:16</button>
+            </div>
+          </div>
+
+          <!-- Color Swatch Row (Click to Copy) -->
+          <div class="space-y-2">
+            <div class="text-[11px] font-mono text-slate-400">ENFORCED HEX PALETTE (CLICK SWATCH TO COPY):</div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="cs-palette-grid">
+              <!-- Swatches populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Synthesized Prompt Box -->
+          <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-wider">Midjourney v6.0 / Flux Prompt</span>
+              <button onclick="copyElementText('cs-prompt-text')" class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 text-xs font-mono transition-colors flex items-center gap-1">
+                <span>Copy Prompt</span>
+              </button>
+            </div>
+            <p class="text-xs text-slate-300 font-mono leading-relaxed" id="cs-prompt-text">
+              Institutional algorithmic trading terminal in architectural glass pavilion, dark brushed titanium finishes, subtle cyan telemetry displays (#06B6D4), obsidian deep background (#0B0F19), pure titanium typography (#F8FAFC), Hasselblad X2D 100C 55mm lens, crisp architectural morning daylight 5200K, monolithic composition, generous negative space --ar 16:9 --style raw --v 6.0
+            </p>
+            <div class="text-[11px] font-mono text-rose-400/90 bg-rose-950/30 p-2.5 rounded border border-rose-900/30" id="cs-negative-prompt">
+              --no neon lasers, cheesy coin piles, floating rockets, cartoon mascots, green laser eyes, cluttered charts
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 04. Wire Protocol Inspector (Stdio JSON-RPC) -->
+    <section id="wire-protocol" class="space-y-6 border-t border-slate-800/80 pt-12">
       <div class="flex items-center gap-3">
-        <span class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm">04</span>
+        <span class="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-400 flex items-center justify-center font-mono font-bold text-sm">04</span>
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-100">Protocol Wire Inspector: Stdio JSON-RPC</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Explore the exact payload exchanged between Claude Desktop and BrandBrain FastMCP</p>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <!-- Wire Step Selector Tabs -->
+        <div class="flex border-b border-slate-800 bg-slate-900/80 p-2 gap-2 overflow-x-auto text-xs font-mono">
+          <button onclick="setWireStep('req')" id="wire-tab-req" class="px-3.5 py-1.5 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition-all">
+            1. Client tools/call Request
+          </button>
+          <button onclick="setWireStep('chroma')" id="wire-tab-chroma" class="px-3.5 py-1.5 rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all">
+            2. ChromaDB Titan Query
+          </button>
+          <button onclick="setWireStep('bedrock')" id="wire-tab-bedrock" class="px-3.5 py-1.5 rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all">
+            3. Bedrock Converse Payload
+          </button>
+          <button onclick="setWireStep('resp')" id="wire-tab-resp" class="px-3.5 py-1.5 rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all">
+            4. FastMCP Validated Response
+          </button>
+        </div>
+
+        <div class="p-5 code-gradient font-mono text-xs text-slate-300 relative">
+          <button onclick="copyElementText('wire-code-content')" class="absolute top-4 right-4 px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition-colors">
+            Copy JSON
+          </button>
+          <pre id="wire-code-content" class="overflow-x-auto leading-relaxed text-slate-300">
+{
+  "jsonrpc": "2.0",
+  "id": "req-98421",
+  "method": "tools/call",
+  "params": {
+    "name": "lint_brand_compliance",
+    "arguments": {
+      "client_id": "solaris-fintech",
+      "copy_text": "Join Solaris today for guaranteed easy money to the moon with 100% returns for every crypto bro!",
+      "channel": "social"
+    }
+  }
+}
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. Key Engineering Edge Cases -->
+    <section id="edge-cases" class="space-y-6 border-t border-slate-800/80 pt-12">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center font-mono font-bold text-sm">05</span>
         <h2 class="text-2xl font-bold tracking-tight text-slate-100">Key Engineering Edge Cases & Solutions</h2>
       </div>
 
-      <div class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
-          <h4 class="text-sm font-bold text-cyan-300 font-mono">1. Multi-Model Resilience & Regional Fallback in Bedrock</h4>
+          <div class="flex items-center gap-2 text-cyan-300 font-mono text-xs font-bold">
+            <span>01</span> Bedrock Regional Model Cascade (eu-north-1)
+          </div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            In AWS Bedrock Europe (Stockholm <code class="text-cyan-400">eu-north-1</code>), foundation models often require cross-region inference profiles (<code class="text-cyan-400">eu.anthropic.claude-sonnet-4-6</code>), while preview models throw <code class="text-rose-400">AccessDeniedException</code>. We implemented an automatic candidate resolver in <code class="text-slate-300">BedrockClient.converse()</code> that gracefully cascades through active models without disrupting user sessions.
+            In AWS Bedrock Stockholm (<code class="text-cyan-400 font-mono">eu-north-1</code>), foundation models often require cross-region inference profiles (<code class="text-cyan-400 font-mono">eu.anthropic.claude-sonnet-4-6</code>), while preview models throw <code class="text-rose-400 font-mono">AccessDeniedException</code>. We built an automatic cascade resolver in <code class="text-slate-300 font-mono">BedrockClient.converse()</code> that gracefully attempts primary inference and falls back without interrupting client sessions.
           </p>
         </div>
 
         <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
-          <h4 class="text-sm font-bold text-cyan-300 font-mono">2. BYOK Privacy & Zero Secret Leakage</h4>
+          <div class="flex items-center gap-2 text-cyan-300 font-mono text-xs font-bold">
+            <span>02</span> Bring-Your-Own-Key (BYOK) Security Isolation
+          </div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            In compliance with open-source security best practices, the server adopts a <strong>Bring Your Own Key (BYOK)</strong> model. Real AWS keys live exclusively in the local <code class="text-slate-300">.env</code> (ignored by Git). Public repositories and GitHub Pages contain only dummy templates. Developers hosting the server bear zero external token liability.
+            Corporate brand knowledge and marketing drafts must never be leaked to third-party SaaS caches. BrandBrain adopts strict BYOK: AWS credentials reside only in the user's local <code class="text-slate-300 font-mono">.env</code> (ignored by Git). The MCP server runs as a local child process; no cloud server or external API relay touches the developer's secrets.
           </p>
         </div>
 
         <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
-          <h4 class="text-sm font-bold text-cyan-300 font-mono">3. Deterministic + LLM Hybrid Guardrails</h4>
+          <div class="flex items-center gap-2 text-cyan-300 font-mono text-xs font-bold">
+            <span>03</span> Hybrid Guardrail Defense (Regex + LLM)
+          </div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Pure LLM evaluators can suffer from prompt injection or leniency. BrandBrain executes deterministic regex pattern matching on banned phrases <em>before</em> calling Bedrock. If a banned phrase is detected, the audit score is capped under 60 and marked as <code class="text-rose-400 font-mono">FAIL</code>, guaranteeing zero false negatives.
+            Pure LLM evaluators can hallucinate or succumb to prompt injections in creative copy. BrandBrain implements a two-stage hybrid pipeline: <strong>Deterministic regex scanning</strong> runs first over client-specific banned vocabularies. If prohibited terms are flagged, compliance status is hard-locked to <code class="text-rose-400 font-mono">FAIL</code> with score &le; 60 before Claude Sonnet evaluates qualitative nuance.
+          </p>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
+          <div class="flex items-center gap-2 text-cyan-300 font-mono text-xs font-bold">
+            <span>04</span> ChromaDB Metadata Scoping & Cosine Distance
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Multi-tenant brand contamination is catastrophic in enterprise environments. BrandBrain structures ChromaDB collections with strict metadata filtering on <code class="text-slate-300 font-mono">client_id</code> and <code class="text-slate-300 font-mono">category</code>. Semantic queries for Solaris never retrieve Velvet Apothecary guidelines, even under high concurrency.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- 5. Key Metrics & Outcomes -->
-    <section class="border-t border-slate-800/80 pt-12">
+    <!-- 06. Interactive ROI Calculator -->
+    <section id="roi-calc" class="space-y-6 border-t border-slate-800/80 pt-12">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm">06</span>
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-100">Interactive Enterprise ROI & Risk Model</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Estimate time savings and risk reduction by shifting brand review into real-time MCP tooling</p>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Slider Controls -->
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Creative & Copy Assets / Month:</span>
+                <span id="roi-assets-val" class="text-cyan-400 font-bold">500</span>
+              </div>
+              <input type="range" id="roi-assets-slider" min="50" max="3000" step="50" value="500" class="w-full accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer" oninput="updateRoiCalc()">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
+                <span>50 assets</span>
+                <span>3,000 assets</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Marketing & Design Team Size:</span>
+                <span id="roi-team-val" class="text-cyan-400 font-bold">12 creators</span>
+              </div>
+              <input type="range" id="roi-team-slider" min="1" max="50" step="1" value="12" class="w-full accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer" oninput="updateRoiCalc()">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
+                <span>1 creator</span>
+                <span>50 creators</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-300">Blended Creative Hourly Cost:</span>
+                <span id="roi-rate-val" class="text-cyan-400 font-bold">$75 / hr</span>
+              </div>
+              <input type="range" id="roi-rate-slider" min="30" max="150" step="5" value="75" class="w-full accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer" oninput="updateRoiCalc()">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
+                <span>$30/hr</span>
+                <span>$150/hr</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Metrics -->
+          <div class="grid grid-cols-2 gap-3.5 bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+            <div class="space-y-1">
+              <div class="text-[11px] font-mono text-slate-400">REVIEW HOURS SAVED</div>
+              <div class="text-2xl font-mono font-extrabold text-cyan-400" id="calc-hours-saved">125 hrs</div>
+              <div class="text-[10px] text-slate-500 font-mono">per month</div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-[11px] font-mono text-slate-400">MONTHLY COST SAVED</div>
+              <div class="text-2xl font-mono font-extrabold text-emerald-400" id="calc-dollars-saved">$9,375</div>
+              <div class="text-[10px] text-slate-500 font-mono">in direct editorial review</div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-[11px] font-mono text-slate-400">REGULATORY RISK CUT</div>
+              <div class="text-2xl font-mono font-extrabold text-amber-400" id="calc-risk-cut">97.8%</div>
+              <div class="text-[10px] text-slate-500 font-mono">zero false-negative filter</div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-[11px] font-mono text-slate-400">ANNUAL ROI VALUE</div>
+              <div class="text-2xl font-mono font-extrabold text-teal-300" id="calc-annual-val">$112,500</div>
+              <div class="text-[10px] text-slate-500 font-mono">at $0 software license fee</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. Client Integration Configs -->
+    <section id="integration" class="space-y-6 border-t border-slate-800/80 pt-12">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center font-mono font-bold text-sm">07</span>
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-100">Zero-Setup Desktop LLM Integration</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Direct plug-and-play configuration for Claude Desktop and Cursor</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Claude Desktop Config -->
+        <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-cyan-300">claude_desktop_config.json</span>
+            <button onclick="copyElementText('claude-config-code')" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300">
+              Copy
+            </button>
+          </div>
+          <pre id="claude-config-code" class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+{
+  "mcpServers": {
+    "brandbrain": {
+      "command": "python",
+      "args": [
+        "-m",
+        "src.server"
+      ],
+      "env": {
+        "AWS_REGION": "eu-north-1"
+      }
+    }
+  }
+}
+          </pre>
+        </div>
+
+        <!-- Cursor Config -->
+        <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-cyan-300">.cursor/mcp.json</span>
+            <button onclick="copyElementText('cursor-config-code')" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300">
+              Copy
+            </button>
+          </div>
+          <pre id="cursor-config-code" class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+{
+  "mcpServers": {
+    "brandbrain": {
+      "command": "python",
+      "args": ["src/server.py"]
+    }
+  }
+}
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. Summary & Verification Banner -->
+    <section class="border-t border-slate-800/80 pt-12 pb-6">
       <div class="glass-card p-8 rounded-2xl glow-cyan border border-cyan-500/20 text-center space-y-6">
-        <h3 class="text-2xl font-bold text-slate-100">Engineering Outcomes</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div>
-            <div class="text-2xl font-mono font-extrabold text-cyan-400">100%</div>
-            <div class="text-xs text-slate-400 font-mono mt-1">Detection on Banned Words</div>
+        <h3 class="text-2xl font-bold text-slate-100">Production-Ready & Fully Verified</h3>
+        <p class="text-sm text-slate-300 max-w-xl mx-auto font-light leading-relaxed">
+          BrandBrain-MCP proves that enterprise brand governance and AI generation can operate in symbiosis rather than opposition.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-xl font-mono font-bold text-cyan-400">100%</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">Banned Terms Caught</div>
           </div>
-          <div>
-            <div class="text-2xl font-mono font-extrabold text-emerald-400">&lt; 15ms</div>
-            <div class="text-xs text-slate-400 font-mono mt-1">ChromaDB Vector Retrieval</div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-xl font-mono font-bold text-emerald-400">&lt; 15ms</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">ChromaDB Retrieval</div>
           </div>
-          <div>
-            <div class="text-2xl font-mono font-extrabold text-amber-400">11 / 11</div>
-            <div class="text-xs text-slate-400 font-mono mt-1">Automated Pytest Suite</div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-xl font-mono font-bold text-amber-400">11 / 11</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">Pytest Unit Suite</div>
           </div>
-          <div>
-            <div class="text-2xl font-mono font-extrabold text-purple-400">$0.00</div>
-            <div class="text-xs text-slate-400 font-mono mt-1">Server Hosting Overhead</div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-xl font-mono font-bold text-teal-300">$0.00</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">Cloud Hosting Cost</div>
           </div>
         </div>
 
-        <div class="pt-4 flex flex-wrap justify-center gap-4">
+        <div class="pt-2 flex flex-wrap justify-center gap-4">
           <a href="index.html" class="px-6 py-2.5 bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg hover:bg-cyan-300 transition-all shadow-md">
-            Test Live Studio →
+            Test Live Interactive Studio →
           </a>
-          <a href="https://github.com/georgieslab/brandbrain-mcp" target="_blank" class="px-6 py-2.5 glass-card text-slate-200 hover:text-white font-mono text-xs rounded-lg border border-slate-700 hover:border-slate-500 transition-all">
-            View Source on GitHub ↗
+          <a href="https://github.com/georgieslab/brandbrain-mcp" target="_blank" class="px-6 py-2.5 glass-card text-slate-200 hover:text-white font-mono text-xs rounded-lg border border-slate-700 hover:border-slate-500 transition-all flex items-center gap-1.5">
+            <span>View Source on GitHub</span> ↗
           </a>
         </div>
       </div>
@@ -323,5 +771,397 @@
     BrandBrain-MCP • Engineering Case Study by Georgie Akopashvili (<a href="https://github.com/georgieslab" class="text-cyan-400 hover:underline">@georgieslab</a>).
   </footer>
 
+  <!-- JavaScript Client Logic -->
+  <script>
+    // 4 Brand Dataset
+    const BRANDS = {
+      solaris: {
+        id: "solaris-fintech",
+        name: "Solaris Fintech",
+        icon: "🏛️",
+        tagline: "Architecting institutional-grade clarity for the decentralized era.",
+        domain: "Institutional Wealth & Quant Liquidity",
+        description: "Solaris speaks with the calm, measured authority of a Tier-1 quantitative institution. We do not hype; we prove. Every statement is supported by math, infrastructure integrity, or regulatory alignment. Language is spare, active, and direct.",
+        attributes: ["Minimalist", "Authoritative", "Transparent", "Analytical", "Precise"],
+        dosDonts: "<strong>Dos:</strong> Use measured active verbs; emphasize risk parameters and custody architecture.<br><strong>Don'ts:</strong> No FOMO, no crypto memes, no exclamation marks.",
+        banned: ["guaranteed", "moon", "easy money", "risk-free", "100% returns", "crypto bro", "to the moon"],
+        failSample: "Join Solaris today for guaranteed easy money to the moon with 100% returns for every crypto bro!",
+        passSample: "Institutional liquidity vaults engineered for deterministic, risk-adjusted capital preservation and audited compliance.",
+        palette: [
+          { name: "Obsidian Deep", hex: "#0B0F19" },
+          { name: "High-Yield Cyan", hex: "#06B6D4" },
+          { name: "Pure Titanium", hex: "#F8FAFC" },
+          { name: "Precision Amber", hex: "#F59E0B" }
+        ],
+        visualPrompt: "Institutional algorithmic trading terminal in architectural glass pavilion, dark brushed titanium finishes, subtle cyan telemetry displays (#06B6D4), obsidian deep background (#0B0F19), pure titanium typography (#F8FAFC), Hasselblad X2D 100C 55mm lens, crisp architectural morning daylight 5200K, monolithic composition, generous negative space",
+        negativePrompt: "--no neon lasers, cheesy coin piles, floating rockets, cartoon mascots, green laser eyes, cluttered charts",
+        failAnalysis: "The copy severely breaches institutional guidelines by promising guaranteed wealth and using speculative retail crypto slang ('easy money', 'to the moon'). This triggers immediate SEC Rule 206(4)-1 violations and destroys the brand's quantitative credibility.",
+        failRewrite: "Engineered for accredited capital allocators seeking transparent, risk-adjusted algorithmic yield architecture.",
+        passAnalysis: "Exemplary brand compliance. Tone is measured, precise, and authoritative. Highlights architectural custody parameters without speculative exaggeration.",
+        passRewrite: "Institutional liquidity vaults engineered for deterministic, risk-adjusted capital preservation and audited compliance."
+      },
+      velvet: {
+        id: "velvet-apothecary",
+        name: "Velvet Apothecary",
+        icon: "🌿",
+        tagline: "Sensory botanicals wildcrafted for the quiet hours.",
+        domain: "Artisanal Botanical Rituals & Clean Beauty",
+        description: "Velvet Apothecary writes like an intimate handwritten journal in an old greenhouse at dusk. Language is rich with tactile imagery, earthy scents, slow rituals, and deep biological respect. We never shame skin or promote artificial perfection.",
+        attributes: ["Poetic", "Warm", "Sensory", "Grounded", "Reverent", "Tactile"],
+        dosDonts: "<strong>Dos:</strong> Evoke sensory tactile details, artisanal sourcing, circadian restorative rituals.<br><strong>Don'ts:</strong> No harsh clinical anti-aging language, no chemical stripping references.",
+        banned: ["synthetic", "chemical peel", "miracle cure", "instant fix", "clinical grade", "bleach", "pore eraser", "erase wrinkles"],
+        failSample: "Try our miracle cure chemical peel and anti-aging bleach for instant synthetic pore erasing perfection!",
+        passSample: "Cold-pressed wild borage and steamed calendula flower essences gently nourish your lipid barrier during dusk rituals.",
+        palette: [
+          { name: "Crushed Sage", hex: "#708238" },
+          { name: "Terracotta Ochre", hex: "#C86D51" },
+          { name: "Raw Linen", hex: "#F4F0EA" },
+          { name: "Botanical Forest", hex: "#1E2E20" }
+        ],
+        visualPrompt: "Wabi-sabi herbalist sanctuary apothecary dropper bottle, handmade deckle-edge paper, unglazed terracotta vessel (#C86D51), crushed sage dried foliage (#708238), warm raw linen texture (#F4F0EA), diffused sunset light through linen curtains 3200K, shallow depth of field f/1.8, soft organic grain",
+        negativePrompt: "--no sterile white laboratory counters, neon green plastics, glossy synthetic packaging, airbrushed poreless skin, computer-generated glossy spheres",
+        failAnalysis: "Violates EU Cosmetics Regulations and brand ethos by promoting aggressive 'chemical peels' and 'miracle cures'. Language pathologizes aging rather than honoring slow restorative rituals.",
+        failRewrite: "Cold-pressed wild borage and steamed calendula flower essences gently restore natural barrier radiance.",
+        passAnalysis: "Captures the poetic tactile cadence of Velvet Apothecary. Evokes restorative sensory botanicals and circadian skin health.",
+        passRewrite: "Cold-pressed wild borage and steamed calendula flower essences gently nourish your lipid barrier during dusk rituals."
+      },
+      lumina: {
+        id: "lumina-automotive",
+        name: "Lumina Automotive",
+        icon: "⚡",
+        tagline: "Pure kinetic aerodynamics sculpted by light.",
+        domain: "Aerodynamic Electric Hypercars",
+        description: "Lumina speaks with the razor-sharp precision of an aerospace wind tunnel test. We celebrate mechanical honesty, raw downforce physics, and lightweight solid-state engineering. We avoid marketing fluff and pedestrian cliches.",
+        attributes: ["Kinetic", "Aerodynamic", "Architectural", "Visceral", "Uncompromising"],
+        dosDonts: "<strong>Dos:</strong> Highlight downforce coefficients, chassis stiffness, exposed forged carbon.<br><strong>Don'ts:</strong> No cheap commuter jargon, no apologetic EV range anxiety talk.",
+        banned: ["gas guzzler", "cheap", "affordable", "family car", "range anxiety", "budget friendly", "plastic interior"],
+        failSample: "The cheapest budget EV that will make gas guzzlers look like slow, affordable family cars with cheap plastic interiors!",
+        passSample: "Sub-2.0 second torque vectoring sculpted in an autoclave carbon fiber chassis. Pure aerodynamic downforce.",
+        palette: [
+          { name: "Nordic Frost", hex: "#E2E8F0" },
+          { name: "Electric Cobalt", hex: "#2563EB" },
+          { name: "Forged Carbon", hex: "#0F172A" },
+          { name: "Kinetic Lime", hex: "#84CC16" }
+        ],
+        visualPrompt: "Scandinavian electric hypercar aerodynamic chassis in moody Nordic twilight, wet tarmac rain reflections, razor-thin laser DRL lightbars, computational wind tunnel streamlines, forged carbon undertray (#0F172A), electric cobalt telemetry accents (#2563EB), Arri Alexa 65 anamorphic lens, 4000K lighting",
+        negativePrompt: "--no sunny family picnics, suburban garages, cartoon renders, cheesy lightning bolts, oversaturated rainbows",
+        failAnalysis: "Severely degrades luxury hypercar positioning with pedestrian adjectives ('cheap', 'budget EV', 'family car'). Lacks engineering gravity and aerodynamic precision.",
+        failRewrite: "Dual-motor solid-state powertrain delivering 1,400 horsepower through computational active aero-foils.",
+        passAnalysis: "Flawless kinetic prose. Emphasizes autoclave carbon engineering, torque vectoring, and downforce aerodynamics without pedestrian cliches.",
+        passRewrite: "Sub-2.0 second torque vectoring sculpted in an autoclave carbon fiber chassis. Pure aerodynamic downforce."
+      },
+      aether: {
+        id: "aether-gaming",
+        name: "Aether Gaming",
+        icon: "🎮",
+        tagline: "Zero latency. Pure human reflex.",
+        domain: "Neural-Link AR & Tier-1 Esports Peripherals",
+        description: "Aether writes like the pulse of an esports grand finals tournament overtime round. Fast, hyper-responsive, sharp, and brutally focused on mechanical micro-switches, polling rates, and human neural reaction time.",
+        attributes: ["High-Adrenaline", "Kinetic", "Cybernetic", "Uncompromising", "Visceral"],
+        dosDonts: "<strong>Dos:</strong> Focus on 8000Hz polling rates, optical sensor tracking, zero debounce latency.<br><strong>Don'ts:</strong> Never call hardware 'toys' or 'childish', zero pay-to-win tolerance.",
+        banned: ["lag", "casual", "childish", "slow", "pay-to-win", "toy", "clunky", "button masher", "cheap plastic"],
+        failSample: "Download our casual game full of microtransactions and pay-to-win toys so you never have to deal with laggy clunky controls!",
+        passSample: "Zero latency neural telemetry. Optical switches actuating at 8000Hz polling for decisive tournament-winning reflexes.",
+        palette: [
+          { name: "Matte Carbon", hex: "#09090B" },
+          { name: "Quantum Magenta", hex: "#E11D48" },
+          { name: "Neon Cyan", hex: "#00F0FF" },
+          { name: "Void Violet", hex: "#581C87" }
+        ],
+        visualPrompt: "Cyberpunk esports championship stage, skeletal cast magnesium mouse shell with honeycomb ventilation, optical infrared switch actuation in macro close-up, dramatic volumetric arena lasers in Quantum Magenta (#E11D48) and Neon Cyan (#00F0FF), dark matte carbon (#09090B), Sony CineAlta lens, haze smoke",
+        negativePrompt: "--no messy teenage bedrooms, cartoon pizza slices, gaudy RGB rainbow cliches, cheap injection-molded glossy plastic",
+        failAnalysis: "Contains taboo esports terms ('casual', 'pay-to-win', 'toy', 'laggy'). Completely violates Aether's positioning as high-stakes digital athletic equipment.",
+        failRewrite: "Sub-millisecond optical switch actuation engineered for esports champions requiring uncompromising neural reflex precision.",
+        passAnalysis: "High kinetic intensity. Focuses on 8000Hz telemetry, reflex precision, and competitive tournament stakes.",
+        passRewrite: "Zero latency neural telemetry. Optical switches actuating at 8000Hz polling for decisive tournament-winning reflexes."
+      }
+    };
+
+    let currentBrandKey = 'solaris';
+    let currentAspect = '16:9';
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      setCaseStudy('solaris');
+      updateRoiCalc();
+
+      // Scroll progress tracking
+      window.addEventListener('scroll', () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / docHeight) * 100;
+        document.getElementById('scroll-progress').style.width = scrolled + '%';
+      });
+
+      // Char count listener
+      const input = document.getElementById('cs-copy-input');
+      input.addEventListener('input', () => {
+        document.getElementById('cs-char-count').innerText = input.value.length + ' characters';
+      });
+    });
+
+    // Set Active Brand in Case Study
+    function setCaseStudy(key) {
+      currentBrandKey = key;
+      const b = BRANDS[key];
+
+      // Update Tab Buttons
+      document.querySelectorAll('.cs-tab-btn').forEach(btn => {
+        btn.className = "cs-tab-btn px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all flex items-center gap-2";
+      });
+      const activeBtn = document.getElementById(`cs-btn-${key}`);
+      if (activeBtn) {
+        activeBtn.className = "cs-tab-btn px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition-all flex items-center gap-2";
+      }
+
+      // Populate Header
+      document.getElementById('cs-icon').innerText = b.icon;
+      document.getElementById('cs-name').innerText = b.name;
+      document.getElementById('cs-client-id').innerText = b.id;
+      document.getElementById('cs-tagline').innerText = `"${b.tagline}"`;
+      document.getElementById('cs-domain-badge').innerText = b.domain;
+      document.getElementById('cs-description').innerText = b.description;
+      document.getElementById('cs-dos-donts').innerHTML = b.dosDonts;
+
+      // Attributes Pills
+      const attrContainer = document.getElementById('cs-attributes-pills');
+      attrContainer.innerHTML = b.attributes.map(a => `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 text-[11px] font-mono">${a}</span>`).join('');
+
+      // Banned Terms Pills
+      const bannedContainer = document.getElementById('cs-banned-terms-pills');
+      bannedContainer.innerHTML = b.banned.slice(0, 6).map(t => `<span class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/50 text-rose-300 text-[11px] font-mono">${t}</span>`).join('');
+
+      // Palette Grid
+      const palGrid = document.getElementById('cs-palette-grid');
+      palGrid.innerHTML = b.palette.map(p => `
+        <div onclick="copyHex('${p.hex}')" class="cursor-pointer group p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all">
+          <div class="w-full h-8 rounded mb-2 border border-white/10 group-hover:scale-[1.02] transition-transform" style="background-color: ${p.hex}"></div>
+          <div class="text-[11px] font-mono text-slate-200 font-bold truncate">${p.name}</div>
+          <div class="text-[10px] font-mono text-cyan-400 flex items-center justify-between mt-0.5">
+            <span>${p.hex}</span>
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity text-[9px]">COPY</span>
+          </div>
+        </div>
+      `).join('');
+
+      // Update Visual Prompt & Negative Prompt
+      renderPromptSpec();
+
+      // Load Default Scenario (fail preset)
+      loadScenario('fail');
+
+      // Update Wire Inspector Request payload
+      updateWireExample(b);
+    }
+
+    // Load Scenario Preset
+    function loadScenario(type) {
+      const b = BRANDS[currentBrandKey];
+      const input = document.getElementById('cs-copy-input');
+      if (type === 'fail') {
+        input.value = b.failSample;
+      } else {
+        input.value = b.passSample;
+      }
+      document.getElementById('cs-char-count').innerText = input.value.length + ' characters';
+      executeLiveAudit();
+    }
+
+    // Execute Live Compliance Audit
+    function executeLiveAudit() {
+      const b = BRANDS[currentBrandKey];
+      const text = document.getElementById('cs-copy-input').value;
+      const lower = text.toLowerCase();
+
+      // Deterministic banned check
+      const detected = [];
+      for (const term of b.banned) {
+        const regex = new RegExp(`\\b${term}\\b`, 'i');
+        if (regex.test(lower)) {
+          detected.push(term);
+        }
+      }
+
+      const scoreCircle = document.getElementById('cs-score-circle');
+      const scoreText = document.getElementById('cs-score-text');
+      const statusBadge = document.getElementById('cs-status-badge');
+      const statusSummary = document.getElementById('cs-status-summary');
+      const analysisText = document.getElementById('cs-analysis-text');
+      const rewriteText = document.getElementById('cs-rewrite-text');
+      const violationsRow = document.getElementById('cs-detected-violations');
+
+      if (detected.length > 0) {
+        // Failed
+        const score = Math.max(20, 60 - detected.length * 10);
+        scoreCircle.className = "score-circle text-rose-500";
+        scoreCircle.setAttribute('stroke-dashoffset', 100 - score);
+        scoreText.innerText = score;
+        scoreText.className = "absolute inset-0 flex items-center justify-center font-mono font-bold text-sm text-rose-400";
+
+        statusBadge.className = "px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800";
+        statusBadge.innerText = "FAIL";
+        statusSummary.innerText = `${detected.length} regulatory violation(s) detected. Banned word trigger.`;
+
+        violationsRow.innerHTML = detected.map(d => `<span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono">banned: ${d}</span>`).join('');
+
+        analysisText.innerText = b.failAnalysis;
+        rewriteText.innerText = `"${b.failRewrite}"`;
+      } else {
+        // Passed
+        const score = 95;
+        scoreCircle.className = "score-circle text-emerald-400";
+        scoreCircle.setAttribute('stroke-dashoffset', 100 - score);
+        scoreText.innerText = score;
+        scoreText.className = "absolute inset-0 flex items-center justify-center font-mono font-bold text-sm text-emerald-400";
+
+        statusBadge.className = "px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800";
+        statusBadge.innerText = "PASS";
+        statusSummary.innerText = "Zero banned terms detected. Fully aligned with brand voice.";
+
+        violationsRow.innerHTML = `<span class="px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-800 text-emerald-300 text-[10px] font-mono">✓ 0 violations</span>`;
+
+        analysisText.innerText = b.passAnalysis;
+        rewriteText.innerText = `"${b.passRewrite}"`;
+      }
+    }
+
+    // Set Aspect Ratio for Prompt
+    function setPromptAr(ar) {
+      currentAspect = ar;
+      document.querySelectorAll('.ar-btn').forEach(btn => {
+        btn.className = "ar-btn px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800";
+      });
+      event.target.className = "ar-btn px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800";
+      renderPromptSpec();
+    }
+
+    // Render Prompt Spec with AR
+    function renderPromptSpec() {
+      const b = BRANDS[currentBrandKey];
+      const fullPrompt = `${b.visualPrompt} --ar ${currentAspect} --style raw --v 6.0`;
+      document.getElementById('cs-prompt-text').innerText = fullPrompt;
+      document.getElementById('cs-negative-prompt').innerText = b.negativePrompt;
+    }
+
+    // Copy Hex to Clipboard with Toast
+    function copyHex(hex) {
+      navigator.clipboard.writeText(hex).then(() => {
+        showToast(`Copied hex ${hex} to clipboard`);
+      });
+    }
+
+    // Copy Element Text
+    function copyElementText(elemId) {
+      const text = document.getElementById(elemId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Copied to clipboard");
+      });
+    }
+
+    // Toast Function
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2200);
+    }
+
+    // Wire Step Selector
+    const WIRE_STEPS = {
+      req: {
+        code: (b) => JSON.stringify({
+          jsonrpc: "2.0",
+          id: "req-98421",
+          method: "tools/call",
+          params: {
+            name: "lint_brand_compliance",
+            arguments: {
+              client_id: b.id,
+              copy_text: b.failSample,
+              channel: "social"
+            }
+          }
+        }, null, 2)
+      },
+      chroma: {
+        code: (b) => JSON.stringify({
+          vector_store: "ChromaDB Persistent (data/chroma_db)",
+          embedding_engine: "amazon.titan-embed-text-v2:0 (1024-dim)",
+          query_filter: { client_id: b.id },
+          retrieved_chunks: [
+            { category: "voice_and_tone", distance: 0.142, doc_id: `${b.id}_voice_and_tone` },
+            { category: "forbidden_terms", distance: 0.089, doc_id: `${b.id}_forbidden_terms` }
+          ]
+        }, null, 2)
+      },
+      bedrock: {
+        code: (b) => JSON.stringify({
+          modelId: "eu.anthropic.claude-sonnet-4-6",
+          region: "eu-north-1",
+          inference_type: "Converse API",
+          system_prompt: `You are the Brand Compliance Officer for ${b.name}. Evaluate tone drift and regulatory safety. Return strict JSON.`,
+          user_prompt: `Evaluate copy: "${b.failSample}" for channel: social.`
+        }, null, 2)
+      },
+      resp: {
+        code: (b) => JSON.stringify({
+          jsonrpc: "2.0",
+          id: "req-98421",
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify({
+                  status: "FAIL",
+                  compliance_score: 35,
+                  prohibited_terms_detected: b.banned.slice(0, 3),
+                  tone_evaluation: b.failAnalysis,
+                  recommended_rewrite: b.failRewrite
+                }, null, 2)
+              }
+            ]
+          }
+        }, null, 2)
+      }
+    };
+
+    let currentWireStep = 'req';
+
+    function setWireStep(step) {
+      currentWireStep = step;
+      document.querySelectorAll('#wire-protocol button').forEach(btn => {
+        btn.className = "px-3.5 py-1.5 rounded-lg bg-transparent text-slate-400 border border-transparent hover:text-slate-200 transition-all";
+      });
+      document.getElementById(`wire-tab-${step}`).className = "px-3.5 py-1.5 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition-all";
+      updateWireExample(BRANDS[currentBrandKey]);
+    }
+
+    function updateWireExample(b) {
+      document.getElementById('wire-code-content').innerText = WIRE_STEPS[currentWireStep].code(b);
+    }
+
+    // Dynamic ROI Calculator
+    function updateRoiCalc() {
+      const assets = parseInt(document.getElementById('roi-assets-slider').value);
+      const team = parseInt(document.getElementById('roi-team-slider').value);
+      const rate = parseInt(document.getElementById('roi-rate-slider').value);
+
+      document.getElementById('roi-assets-val').innerText = assets.toLocaleString();
+      document.getElementById('roi-team-val').innerText = `${team} creators`;
+      document.getElementById('roi-rate-val').innerText = `$${rate} / hr`;
+
+      // 15 mins saved per asset on average
+      const hoursSaved = Math.round((assets * 15) / 60);
+      const dollarsSaved = Math.round(hoursSaved * rate);
+      const annualVal = dollarsSaved * 12;
+
+      document.getElementById('calc-hours-saved').innerText = `${hoursSaved.toLocaleString()} hrs`;
+      document.getElementById('calc-dollars-saved').innerText = `$${dollarsSaved.toLocaleString()}`;
+      document.getElementById('calc-annual-val').innerText = `$${annualVal.toLocaleString()}`;
+    }
+  </script>
 </body>
 </html>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BrandBrain MCP — Creative & Brand Operations Engine</title>
+  <title>BrandBrain-MCP — Creative & Brand Operations Engine</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -24,6 +24,8 @@
               amber: '#F59E0B',
               sage: '#708238',
               ochre: '#C86D51',
+              cobalt: '#2563EB',
+              magenta: '#E11D48',
             }
           }
         }
@@ -43,22 +45,45 @@
     .glow-cyan {
       box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25);
     }
+    .glow-rose {
+      box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.25);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+    }
+    .score-circle {
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease;
+    }
+    .code-gradient {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 15, 25, 0.98) 100%);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
 
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 bg-slate-900 border border-cyan-500/50 text-cyan-300 text-xs font-mono px-4 py-3 rounded-xl shadow-2xl">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Copied to clipboard</span>
+  </div>
+
   <!-- Navigation -->
-  <header class="border-b border-slate-800/80 sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-md">
+  <header class="border-b border-slate-800/80 sticky top-0 z-40 bg-[#0B0F19]/80 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 flex items-center justify-center font-mono font-bold text-black text-lg">
-          B
-        </div>
-        <span class="font-bold text-lg tracking-tight">BrandBrain<span class="text-cyan-400 font-mono text-sm ml-1.5 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/50">MCP</span></span>
+        <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 flex items-center justify-center font-mono font-bold text-black text-lg">
+            B
+          </div>
+          <span class="font-bold text-lg tracking-tight">BrandBrain<span class="text-cyan-400 font-mono text-sm ml-1.5 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/50">MCP</span></span>
+        </a>
       </div>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300 font-medium">
         <a href="#playground" class="hover:text-cyan-400 transition-colors">Interactive Studio</a>
-        <a href="case-study.html" class="hover:text-cyan-400 transition-colors text-cyan-300 font-semibold">Case Study ↗</a>
+        <a href="case-study.html" class="hover:text-cyan-400 transition-colors text-cyan-300 font-semibold flex items-center gap-1">
+          <span>Case Study</span> <span class="text-xs">↗</span>
+        </a>
+        <a href="#brands" class="hover:text-cyan-400 transition-colors">4 Brand Profiles</a>
         <a href="#architecture" class="hover:text-cyan-400 transition-colors">Architecture</a>
         <a href="#integration" class="hover:text-cyan-400 transition-colors">Client Setup</a>
       </nav>
@@ -72,11 +97,11 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative pt-20 pb-16 px-6 overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(6,182,212,0.15),rgba(255,255,255,0))]"></div>
+  <section class="relative pt-20 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(6,182,212,0.18),rgba(255,255,255,0))]"></div>
     <div class="max-w-5xl mx-auto text-center relative z-10">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 mb-6">
-        <span>⚡ Model Context Protocol Server for Enterprise Creative Ops</span>
+        <span>⚡ Production Model Context Protocol Server for Creative & Brand Operations</span>
       </div>
       <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight sm:leading-none mb-6">
         Brand Knowledge, Tone Guardrails & <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-300">Diffusion Specs</span> in your IDE
@@ -86,11 +111,11 @@
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <a href="#playground" class="px-6 py-3 rounded-lg bg-cyan-400 text-slate-950 font-semibold text-sm hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-500/20">
-          Launch Interactive Studio
+        <a href="#playground" class="px-6 py-3 rounded-lg bg-cyan-400 text-slate-950 font-bold text-sm hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-500/20">
+          Launch Interactive Studio ↓
         </a>
         <a href="case-study.html" class="px-6 py-3 rounded-lg bg-cyan-950/70 text-cyan-300 hover:bg-cyan-900/80 font-semibold text-sm border border-cyan-800/80 transition-all font-mono flex items-center gap-2">
-          <span>📖</span> Read Case Study
+          <span>📖</span> Read Full Case Study
         </a>
         <a href="#integration" class="px-6 py-3 rounded-lg glass-card text-slate-200 hover:text-white font-semibold text-sm hover:border-slate-600 transition-all font-mono">
           Copy mcp_config.json
@@ -101,23 +126,23 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto text-left">
         <div class="glass-card p-4 rounded-xl">
           <div class="text-xs text-slate-400 font-mono">LLM RUNTIME</div>
-          <div class="text-base font-semibold text-slate-100 mt-1">AWS Bedrock Claude</div>
+          <div class="text-base font-semibold text-slate-100 mt-1">Claude Sonnet 4.6</div>
           <div class="text-xs text-cyan-400 font-mono mt-0.5">Converse API Active</div>
         </div>
         <div class="glass-card p-4 rounded-xl">
           <div class="text-xs text-slate-400 font-mono">VECTOR STORE</div>
           <div class="text-base font-semibold text-slate-100 mt-1">ChromaDB Persistent</div>
-          <div class="text-xs text-cyan-400 font-mono mt-0.5">Titan V2 (1024-dim)</div>
+          <div class="text-xs text-cyan-400 font-mono mt-0.5">20 Titan Chunks (1024-dim)</div>
         </div>
         <div class="glass-card p-4 rounded-xl">
-          <div class="text-xs text-slate-400 font-mono">TRANSPORT</div>
-          <div class="text-base font-semibold text-slate-100 mt-1">MCP Standard I/O</div>
-          <div class="text-xs text-cyan-400 font-mono mt-0.5">FastMCP SDK</div>
+          <div class="text-xs text-slate-400 font-mono">CLIENT BRANDS</div>
+          <div class="text-base font-semibold text-slate-100 mt-1">4 Distinct Personas</div>
+          <div class="text-xs text-cyan-400 font-mono mt-0.5">Fintech, Botanical, Auto, Gaming</div>
         </div>
         <div class="glass-card p-4 rounded-xl">
           <div class="text-xs text-slate-400 font-mono">GUARDRAILS</div>
           <div class="text-base font-semibold text-slate-100 mt-1">Tone & Banned Words</div>
-          <div class="text-xs text-cyan-400 font-mono mt-0.5">Deterministic + LLM</div>
+          <div class="text-xs text-cyan-400 font-mono mt-0.5">Zero False Negatives</div>
         </div>
       </div>
     </div>
@@ -125,15 +150,32 @@
 
   <!-- Interactive Studio / Playground -->
   <section id="playground" class="py-16 px-6 max-w-6xl mx-auto w-full">
-    <div class="text-center mb-10">
+    <div class="text-center mb-8">
       <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Interactive Creative Ops Studio</h2>
-      <p class="text-slate-400 text-sm mt-2">Test how BrandBrain tools evaluate copy, retrieve rules, and generate visual prompts</p>
+      <p class="text-slate-400 text-sm mt-2">Test how BrandBrain tools evaluate copy, retrieve rules, and generate visual specs</p>
+    </div>
+
+    <!-- Brand Switcher Bar (4 Brands) -->
+    <div class="mb-6 flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
+      <span class="text-xs font-mono text-slate-400 mr-2">SELECT BRAND:</span>
+      <button onclick="selectGlobalBrand('solaris-fintech')" id="btn-brand-solaris" class="brand-btn px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 transition-all flex items-center gap-2 shadow-sm">
+        <span>🏛️</span> Solaris Fintech
+      </button>
+      <button onclick="selectGlobalBrand('velvet-apothecary')" id="btn-brand-velvet" class="brand-btn px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition-all flex items-center gap-2">
+        <span>🌿</span> Velvet Apothecary
+      </button>
+      <button onclick="selectGlobalBrand('lumina-automotive')" id="btn-brand-lumina" class="brand-btn px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition-all flex items-center gap-2">
+        <span>⚡</span> Lumina Automotive
+      </button>
+      <button onclick="selectGlobalBrand('aether-gaming')" id="btn-brand-aether" class="brand-btn px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition-all flex items-center gap-2">
+        <span>🎮</span> Aether Gaming
+      </button>
     </div>
 
     <!-- Playground Container -->
-    <div class="glass-card glow-cyan rounded-2xl overflow-hidden border border-slate-700/60">
+    <div class="glass-card glow-cyan rounded-2xl overflow-hidden border border-slate-700/60" id="main-studio-card">
       <!-- Tabs Bar -->
-      <div class="flex border-b border-slate-800 bg-slate-900/60 p-2 gap-2">
+      <div class="flex border-b border-slate-800 bg-slate-900/70 p-2.5 gap-2 overflow-x-auto">
         <button id="tab-lint" onclick="switchTab('lint')" class="px-4 py-2 text-sm font-semibold rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800/80 transition-all flex items-center gap-2">
           <span>🔍</span> Tone & Compliance Linter
         </button>
@@ -143,6 +185,9 @@
         <button id="tab-retrieve" onclick="switchTab('retrieve')" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2">
           <span>📚</span> Brand Guidelines Retrieval
         </button>
+        <button id="tab-terminal" onclick="switchTab('terminal')" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2 font-mono text-xs">
+          <span>💻</span> MCP Terminal Wire
+        </button>
       </div>
 
       <div class="p-6 md:p-8">
@@ -151,17 +196,17 @@
         <div id="view-lint" class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label class="block text-xs font-mono text-slate-400 mb-1.5">CLIENT BRAND</label>
-              <select id="lint-client" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 font-mono focus:border-cyan-500 focus:outline-none" onchange="updateLintPresets()">
-                <option value="solaris-fintech">solaris-fintech (Solaris Fintech)</option>
-                <option value="velvet-apothecary">velvet-apothecary (Velvet Apothecary)</option>
-              </select>
+              <label class="block text-xs font-mono text-slate-400 mb-1.5">ACTIVE CLIENT BRAND</label>
+              <div id="lint-client-display" class="w-full bg-slate-900/90 border border-cyan-800/60 rounded-lg px-3 py-2 text-xs font-mono text-cyan-300 flex items-center justify-between">
+                <span id="lint-client-name">solaris-fintech</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 border border-cyan-700/50">Active</span>
+              </div>
             </div>
             <div>
               <label class="block text-xs font-mono text-slate-400 mb-1.5">TARGET CHANNEL</label>
-              <select id="lint-channel" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 font-mono focus:border-cyan-500 focus:outline-none">
-                <option value="social">social (LinkedIn, Twitter/X, Instagram)</option>
-                <option value="reports">reports (Investor & Technical Digest)</option>
+              <select id="lint-channel" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 font-mono focus:border-cyan-500 focus:outline-none">
+                <option value="social">social (LinkedIn, X, Instagram)</option>
+                <option value="reports">reports (Quarterly & Technical Digest)</option>
                 <option value="ads">ads (High-Impact Paid Canvas)</option>
                 <option value="packaging">packaging (Physical print & boxes)</option>
               </select>
@@ -169,10 +214,10 @@
             <div>
               <label class="block text-xs font-mono text-slate-400 mb-1.5">QUICK TEST PRESETS</label>
               <div class="flex gap-2">
-                <button onclick="applyPreset('pass')" class="flex-1 px-3 py-2 text-xs bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 rounded-lg hover:bg-emerald-900/60 font-mono">
+                <button onclick="applyPreset('pass')" class="flex-1 px-3 py-2 text-xs bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 rounded-lg hover:bg-emerald-900/60 font-mono transition-colors">
                   ✓ Compliant
                 </button>
-                <button onclick="applyPreset('fail')" class="flex-1 px-3 py-2 text-xs bg-rose-950/60 border border-rose-600/40 text-rose-300 rounded-lg hover:bg-rose-900/60 font-mono">
+                <button onclick="applyPreset('fail')" class="flex-1 px-3 py-2 text-xs bg-rose-950/60 border border-rose-600/40 text-rose-300 rounded-lg hover:bg-rose-900/60 font-mono transition-colors">
                   ✗ Banned Terms
                 </button>
               </div>
@@ -180,48 +225,71 @@
           </div>
 
           <div>
-            <label class="block text-xs font-mono text-slate-400 mb-1.5">DRAFT COPY TO AUDIT</label>
-            <textarea id="lint-input" rows="4" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 font-sans focus:border-cyan-500 focus:outline-none resize-none" placeholder="Paste marketing copy or social draft here..."></textarea>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-mono text-slate-400">DRAFT COPY TO AUDIT</label>
+              <span id="draft-char-count" class="text-xs font-mono text-slate-500">120 chars</span>
+            </div>
+            <textarea id="lint-input" rows="3" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 font-sans focus:border-cyan-500 focus:outline-none resize-none" placeholder="Paste marketing copy or social draft here..." oninput="updateCharCount()"></textarea>
           </div>
 
           <div class="flex justify-end">
-            <button onclick="simulateLint()" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm rounded-lg transition-all shadow-md">
-              Run lint_brand_compliance()
+            <button onclick="simulateLint()" class="px-6 py-2.5 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-sm rounded-lg transition-all shadow-md flex items-center gap-2">
+              <span>Run lint_brand_compliance()</span> →
             </button>
           </div>
 
-          <!-- Linter Output Panel -->
-          <div id="lint-result-panel" class="border border-slate-800 rounded-xl bg-slate-950/70 p-5 mt-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
-              <div class="flex items-center gap-3">
-                <span class="text-xs font-mono text-slate-400">AUDIT VERDICT:</span>
-                <span id="lint-status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-600/50">PASS</span>
+          <!-- Linter Output Panel with Animated Gauge & Split View -->
+          <div id="lint-result-panel" class="border border-slate-800 rounded-xl bg-slate-950/80 p-5 mt-6 space-y-5">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+              <div class="flex items-center gap-4">
+                <!-- Circular Animated Gauge -->
+                <div class="relative w-16 h-16 flex items-center justify-center">
+                  <svg class="w-16 h-16 transform -rotate-90">
+                    <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="5" class="text-slate-800 fill-none" />
+                    <circle id="score-circle-bar" cx="32" cy="32" r="28" stroke="currentColor" stroke-width="5" class="text-emerald-400 fill-none score-circle" stroke-dasharray="175.9" stroke-dashoffset="15" stroke-linecap="round" />
+                  </svg>
+                  <span id="lint-score-number" class="absolute font-mono text-sm font-extrabold text-emerald-400">91</span>
+                </div>
+                <div>
+                  <div class="text-xs font-mono text-slate-400">AUDIT VERDICT</div>
+                  <div class="flex items-center gap-2 mt-0.5">
+                    <span id="lint-status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-600/50">PASS</span>
+                    <span id="lint-summary-label" class="text-xs text-slate-300">Tone aligned with guidelines</span>
+                  </div>
+                </div>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-mono text-slate-400">SCORE:</span>
-                <span id="lint-score" class="font-mono text-xl font-extrabold text-emerald-400">91/100</span>
+                <button onclick="copyRewrite()" class="px-3 py-1.5 text-xs font-mono bg-cyan-950 border border-cyan-800 text-cyan-300 rounded-lg hover:bg-cyan-900 transition-colors flex items-center gap-1.5">
+                  <span>📋</span> Copy Rewrite
+                </button>
               </div>
             </div>
 
-            <div class="mt-4 space-y-4">
-              <div>
-                <span class="text-xs font-mono text-slate-400 block mb-1">DETECTED FORBIDDEN TERMS:</span>
-                <div id="lint-banned-tags" class="flex flex-wrap gap-1.5">
-                  <span class="text-xs font-mono text-slate-500 italic">None detected</span>
-                </div>
+            <!-- Banned Terms Tags -->
+            <div>
+              <span class="text-xs font-mono text-slate-400 block mb-1.5">DETECTED FORBIDDEN TERMS:</span>
+              <div id="lint-banned-tags" class="flex flex-wrap gap-1.5">
+                <span class="text-xs font-mono text-emerald-400 font-semibold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">✓ 0 forbidden terms detected</span>
               </div>
-              <div>
-                <span class="text-xs font-mono text-slate-400 block mb-1">TONE DRIFT ANALYSIS:</span>
-                <p id="lint-analysis" class="text-xs text-slate-300 leading-relaxed font-sans bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-                  The draft is clean, direct, and free of all forbidden terms. It aligns well with Solaris's minimalist, authoritative voice and correctly targets the institutional audience.
-                </p>
+            </div>
+
+            <!-- Tone Drift Analysis -->
+            <div>
+              <span class="text-xs font-mono text-slate-400 block mb-1">TONE DRIFT ANALYSIS:</span>
+              <p id="lint-analysis" class="text-xs text-slate-300 leading-relaxed font-sans bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                The draft is clean, direct, and free of all forbidden terms. It aligns well with Solaris's minimalist, authoritative voice and correctly targets the institutional audience.
+              </p>
+            </div>
+
+            <!-- Suggested Rewrite with Diff Highlight -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-mono text-slate-400">BRAND-ALIGNED REWRITE:</span>
+                <span class="text-xs font-mono text-cyan-400">Optimized for tone & compliance</span>
               </div>
-              <div>
-                <span class="text-xs font-mono text-slate-400 block mb-1">SUGGESTED REWRITE:</span>
-                <p id="lint-rewrite" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 p-3 rounded-lg border border-cyan-800/50 leading-relaxed">
-                  Solaris engineers transparent, cryptographically verifiable execution algorithms purpose-built for institutional-grade quantitative infrastructure. Every layer is audited, parameterized, and architecturally accountable. #AlgoTrading #InstitutionalFinance
-                </p>
-              </div>
+              <p id="lint-rewrite" class="text-xs font-mono text-cyan-300 bg-cyan-950/40 p-3.5 rounded-lg border border-cyan-800/50 leading-relaxed">
+                Solaris engineers transparent, cryptographically verifiable execution algorithms purpose-built for institutional-grade quantitative infrastructure. Every layer is audited, parameterized, and architecturally accountable. #AlgoTrading #InstitutionalFinance
+              </p>
             </div>
           </div>
         </div>
@@ -230,52 +298,78 @@
         <div id="view-visual" class="hidden space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-mono text-slate-400 mb-1.5">CLIENT BRAND</label>
-              <select id="vis-client" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 font-mono focus:border-cyan-500 focus:outline-none" onchange="updateVisualConcept()">
-                <option value="velvet-apothecary">velvet-apothecary (Velvet Apothecary)</option>
-                <option value="solaris-fintech">solaris-fintech (Solaris Fintech)</option>
-              </select>
+              <label class="block text-xs font-mono text-slate-400 mb-1.5">TARGET PLATFORM & ASPECT RATIO</label>
+              <div class="grid grid-cols-4 gap-2">
+                <button onclick="setVisualPlatform('instagram', '4:5')" id="ar-btn-instagram" class="ar-btn p-2 text-center rounded-lg bg-cyan-950 border border-cyan-700 text-cyan-300 text-xs font-mono font-semibold">
+                  IG 4:5
+                </button>
+                <button onclick="setVisualPlatform('linkedin', '16:9')" id="ar-btn-linkedin" class="ar-btn p-2 text-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono hover:border-slate-700">
+                  LI 16:9
+                </button>
+                <button onclick="setVisualPlatform('packaging', '1:1')" id="ar-btn-packaging" class="ar-btn p-2 text-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono hover:border-slate-700">
+                  Box 1:1
+                </button>
+                <button onclick="setVisualPlatform('hero-banner', '21:9')" id="ar-btn-hero" class="ar-btn p-2 text-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono hover:border-slate-700">
+                  Hero 21:9
+                </button>
+              </div>
             </div>
             <div>
-              <label class="block text-xs font-mono text-slate-400 mb-1.5">TARGET PLATFORM</label>
-              <select id="vis-platform" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 font-mono focus:border-cyan-500 focus:outline-none">
-                <option value="instagram">instagram (4:5 vertical portrait)</option>
-                <option value="linkedin">linkedin (16:9 widescreen landscape)</option>
-                <option value="packaging">packaging (1:1 square macro)</option>
-                <option value="hero-banner">hero-banner (16:9 panoramic)</option>
-              </select>
+              <label class="block text-xs font-mono text-slate-400 mb-1.5">DIFFUSION MODEL TARGET</label>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="p-2 text-center rounded-lg bg-slate-900 border border-cyan-800/40 text-cyan-300 text-xs font-mono">
+                  Midjourney v6
+                </div>
+                <div class="p-2 text-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono">
+                  Flux.1 Pro
+                </div>
+                <div class="p-2 text-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono">
+                  ComfyUI
+                </div>
+              </div>
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-mono text-slate-400 mb-1.5">VISUAL CONCEPT</label>
-            <input type="text" id="vis-concept" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 font-sans focus:border-cyan-500 focus:outline-none" value="Midnight chamomile facial elixir bottle on raw linen">
+            <input type="text" id="vis-concept" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 font-sans focus:border-cyan-500 focus:outline-none" value="Monolithic quantitative data center terminal">
           </div>
 
           <div class="flex justify-end">
-            <button onclick="simulateVisual()" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm rounded-lg transition-all shadow-md">
-              Run generate_visual_prompt_spec()
+            <button onclick="simulateVisual()" class="px-6 py-2.5 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-sm rounded-lg transition-all shadow-md flex items-center gap-2">
+              <span>Run generate_visual_prompt_spec()</span> →
             </button>
           </div>
 
-          <div id="vis-result-panel" class="border border-slate-800 rounded-xl bg-slate-950/70 p-5 mt-6 space-y-4">
+          <div id="vis-result-panel" class="border border-slate-800 rounded-xl bg-slate-950/80 p-5 mt-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <span class="text-xs font-mono text-slate-400">READY-TO-USE DIFFUSION PROMPT</span>
+              <button onclick="copyVisualPrompt()" class="px-3 py-1 text-xs font-mono bg-cyan-950 border border-cyan-800 text-cyan-300 rounded hover:bg-cyan-900 transition-colors flex items-center gap-1">
+                <span>📋</span> Copy Full Prompt
+              </button>
+            </div>
+
             <div>
               <span class="text-xs font-mono text-slate-400 block mb-1">POSITIVE PROMPT (MIDJOURNEY / FLUX):</span>
-              <p id="vis-positive" class="text-xs font-mono text-emerald-300 bg-emerald-950/30 p-3 rounded-lg border border-emerald-800/40 leading-relaxed"></p>
+              <p id="vis-positive" class="text-xs font-mono text-emerald-300 bg-emerald-950/30 p-3.5 rounded-lg border border-emerald-800/40 leading-relaxed"></p>
             </div>
+
             <div>
               <span class="text-xs font-mono text-slate-400 block mb-1">NEGATIVE PROMPT (EXCLUSIONS):</span>
               <p id="vis-negative" class="text-xs font-mono text-rose-300 bg-rose-950/30 p-3 rounded-lg border border-rose-800/40 leading-relaxed"></p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              <div>
-                <span class="text-xs font-mono text-slate-400 block mb-1">ASPECT RATIO:</span>
-                <div id="vis-ar" class="text-xs font-mono font-bold text-cyan-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800">4:5</div>
+
+            <!-- Color Palette Swatches -->
+            <div class="pt-2">
+              <span class="text-xs font-mono text-slate-400 block mb-2">EXTRACTED BRAND PALETTE (CLICK TO COPY HEX):</span>
+              <div id="vis-swatches" class="flex flex-wrap gap-2.5">
+                <!-- Injected via JS -->
               </div>
-              <div>
-                <span class="text-xs font-mono text-slate-400 block mb-1">LIGHTING & PALETTE SPECS:</span>
-                <div id="vis-lighting" class="text-xs font-mono text-amber-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800"></div>
-              </div>
+            </div>
+
+            <div class="pt-1">
+              <span class="text-xs font-mono text-slate-400 block mb-1">LIGHTING & ATMOSPHERE SPECS:</span>
+              <div id="vis-lighting" class="text-xs font-mono text-amber-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800"></div>
             </div>
           </div>
         </div>
@@ -285,29 +379,207 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-mono text-slate-400 mb-1.5">CLIENT BRAND</label>
-              <select id="ret-client" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 font-mono focus:border-cyan-500 focus:outline-none">
-                <option value="solaris-fintech">solaris-fintech</option>
-                <option value="velvet-apothecary">velvet-apothecary</option>
-              </select>
+              <div id="ret-client-display" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-cyan-300">
+                solaris-fintech
+              </div>
             </div>
             <div>
               <label class="block text-xs font-mono text-slate-400 mb-1.5">SEMANTIC QUERY</label>
-              <input type="text" id="ret-query" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-sm text-slate-100 font-sans focus:border-cyan-500 focus:outline-none" value="color palette and hex codes">
+              <input type="text" id="ret-query" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-xs text-slate-100 font-sans focus:border-cyan-500 focus:outline-none" value="color palette and hex codes">
             </div>
           </div>
 
           <div class="flex justify-end">
-            <button onclick="simulateRetrieve()" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm rounded-lg transition-all shadow-md">
-              Run retrieve_brand_guidelines()
+            <button onclick="simulateRetrieve()" class="px-6 py-2.5 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-sm rounded-lg transition-all shadow-md flex items-center gap-2">
+              <span>Run retrieve_brand_guidelines()</span> →
             </button>
           </div>
 
-          <div id="ret-result-panel" class="border border-slate-800 rounded-xl bg-slate-950/70 p-5 mt-6">
-            <span class="text-xs font-mono text-slate-400 block mb-2">CHROMADB VECTOR RETRIEVAL OUTPUT:</span>
+          <div id="ret-result-panel" class="border border-slate-800 rounded-xl bg-slate-950/80 p-5 mt-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+              <span class="text-xs font-mono text-slate-400">CHROMADB EMBEDDING SIMILARITY MATCH (1024-DIM TITAN V2)</span>
+              <span class="text-xs font-mono text-emerald-400">Cosine Distance: 0.142</span>
+            </div>
             <pre id="ret-output" class="text-xs font-mono text-slate-300 bg-slate-900/90 p-4 rounded-lg border border-slate-800 overflow-x-auto whitespace-pre-wrap leading-relaxed"></pre>
           </div>
         </div>
 
+        <!-- TAB 4: TERMINAL WIRE -->
+        <div id="view-terminal" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+              <span class="text-xs font-mono text-slate-400 ml-2">stdio // json-rpc 2.0 packet stream</span>
+            </div>
+            <button onclick="simulateLiveWire()" class="text-xs font-mono px-3 py-1 bg-cyan-950 text-cyan-300 border border-cyan-800 rounded hover:bg-cyan-900">
+              Send Test Packet ⚡
+            </button>
+          </div>
+          <div class="rounded-xl border border-slate-800 code-gradient p-4 font-mono text-xs overflow-x-auto space-y-3">
+            <div>
+              <span class="text-slate-500">[STDIN &gt;&gt; HOST]</span>
+              <pre id="wire-request" class="text-cyan-300 mt-1 whitespace-pre-wrap">{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "lint_brand_compliance",
+    "arguments": {
+      "client_id": "solaris-fintech",
+      "draft_text": "Solaris provides transparent execution algorithms."
+    }
+  }
+}</pre>
+            </div>
+            <div class="border-t border-slate-800/80 pt-3">
+              <span class="text-emerald-500">[STDOUT &lt;&lt; BRANDBRAIN]</span>
+              <pre id="wire-response" class="text-emerald-300 mt-1 whitespace-pre-wrap">{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"score\": 91,\n  \"status\": \"PASS\",\n  \"forbidden_terms_found\": [],\n  \"tone_drift_analysis\": \"Clean direct tone matching Solaris guidelines.\"\n}"
+      }
+    ]
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Brand Showcase Grid -->
+  <section id="brands" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-cyan-950/60 border border-cyan-800/60 text-cyan-300 mb-3">
+        MULTI-TENANT BRAND INTELLIGENCE
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">4 Pre-Seeded Enterprise Case Studies</h2>
+      <p class="text-slate-400 text-sm mt-2">Each brand has strictly isolated voice rules, regulatory guardrails, and aesthetic color systems</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Solaris -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-cyan-500/50 transition-all cursor-pointer" onclick="selectGlobalBrand('solaris-fintech'); window.location.href='#playground'">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🏛️</span>
+            <div>
+              <h3 class="font-bold text-slate-100">Solaris Fintech</h3>
+              <span class="text-xs text-slate-400">Institutional Algorithmic Infrastructure</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/50">solaris-fintech</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Minimal brutalism, quantitative transparency, institutional trust. Strictly prohibited retail FOMO slang.
+        </p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 guaranteed</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 easy money</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 to the moon</span>
+        </div>
+        <div class="flex items-center gap-2 pt-1">
+          <div class="w-5 h-5 rounded-full bg-[#0B0F19] border border-slate-700" title="#0B0F19"></div>
+          <div class="w-5 h-5 rounded-full bg-[#06B6D4]" title="#06B6D4"></div>
+          <div class="w-5 h-5 rounded-full bg-[#F8FAFC]" title="#F8FAFC"></div>
+          <div class="w-5 h-5 rounded-full bg-[#F59E0B]" title="#F59E0B"></div>
+          <span class="text-xs font-mono text-slate-500 ml-auto">Obsidian & Cyan</span>
+        </div>
+      </div>
+
+      <!-- Velvet -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-amber-500/50 transition-all cursor-pointer" onclick="selectGlobalBrand('velvet-apothecary'); window.location.href='#playground'">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🌿</span>
+            <div>
+              <h3 class="font-bold text-slate-100">Velvet Apothecary</h3>
+              <span class="text-xs text-slate-400">Regenerative Slow-Batch Botanicals</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800/50">velvet-apothecary</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Poetic, warm, sensory, grounded, reverent prose. Celebrates skin microbiome and evening rituals.
+        </p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 chemical peel</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 synthetic</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 miracle cure</span>
+        </div>
+        <div class="flex items-center gap-2 pt-1">
+          <div class="w-5 h-5 rounded-full bg-[#708238]" title="#708238"></div>
+          <div class="w-5 h-5 rounded-full bg-[#C86D51]" title="#C86D51"></div>
+          <div class="w-5 h-5 rounded-full bg-[#F4F0EA]" title="#F4F0EA"></div>
+          <div class="w-5 h-5 rounded-full bg-[#E8A858]" title="#E8A858"></div>
+          <span class="text-xs font-mono text-slate-500 ml-auto">Sage & Ochre</span>
+        </div>
+      </div>
+
+      <!-- Lumina -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-blue-500/50 transition-all cursor-pointer" onclick="selectGlobalBrand('lumina-automotive'); window.location.href='#playground'">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">⚡</span>
+            <div>
+              <h3 class="font-bold text-slate-100">Lumina Automotive</h3>
+              <span class="text-xs text-slate-400">Solid-State Electric Hypercars</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800/50">lumina-automotive</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Scandinavian aerodynamic brutalism, downforce thermodynamics, exposed dry carbon weave, wet asphalt track reflections.
+        </p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 family car</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 range anxiety</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 cheap commuter</span>
+        </div>
+        <div class="flex items-center gap-2 pt-1">
+          <div class="w-5 h-5 rounded-full bg-[#E2E8F0]" title="#E2E8F0"></div>
+          <div class="w-5 h-5 rounded-full bg-[#2563EB]" title="#2563EB"></div>
+          <div class="w-5 h-5 rounded-full bg-[#0F172A]" title="#0F172A"></div>
+          <div class="w-5 h-5 rounded-full bg-[#84CC16]" title="#84CC16"></div>
+          <span class="text-xs font-mono text-slate-500 ml-auto">Cobalt & Nordic Frost</span>
+        </div>
+      </div>
+
+      <!-- Aether -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-purple-500/50 transition-all cursor-pointer" onclick="selectGlobalBrand('aether-gaming'); window.location.href='#playground'">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🎮</span>
+            <div>
+              <h3 class="font-bold text-slate-100">Aether Gaming</h3>
+              <span class="text-xs text-slate-400">Zero-Latency Esports Hardware</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-400 border border-purple-800/50">aether-gaming</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          High-adrenaline cybernetics, 8000Hz polling rate optical switches, magnesium chassis, digital athletics.
+        </p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 lag</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 casual play</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-900/40">🚫 button masher</span>
+        </div>
+        <div class="flex items-center gap-2 pt-1">
+          <div class="w-5 h-5 rounded-full bg-[#09090B]" title="#09090B"></div>
+          <div class="w-5 h-5 rounded-full bg-[#E11D48]" title="#E11D48"></div>
+          <div class="w-5 h-5 rounded-full bg-[#00F0FF]" title="#00F0FF"></div>
+          <div class="w-5 h-5 rounded-full bg-[#581C87]" title="#581C87"></div>
+          <span class="text-xs font-mono text-slate-500 ml-auto">Void & Quantum Magenta</span>
+        </div>
       </div>
     </div>
   </section>
@@ -361,7 +633,7 @@
 
     <div class="glass-card rounded-xl overflow-hidden border border-slate-800">
       <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
-        <span class="text-xs font-mono text-slate-400">mcp_config.json</span>
+        <span class="text-xs font-mono text-slate-400">mcp_config.json (Bring Your Own Key)</span>
         <button onclick="copyConfig()" id="copy-btn" class="text-xs font-mono px-3 py-1 bg-cyan-950 border border-cyan-800/80 text-cyan-300 rounded hover:bg-cyan-900 transition-colors">
           Copy JSON
         </button>
@@ -388,13 +660,129 @@
 
   <!-- Footer -->
   <footer class="mt-auto border-t border-slate-900 bg-slate-950/80 py-8 px-6 text-center text-xs text-slate-500 font-mono">
-    BrandBrain-MCP — Production Model Context Protocol for Creative & Brand Operations. Built with AWS Bedrock & ChromaDB.
+    BrandBrain-MCP — Production Model Context Protocol for Creative & Brand Operations. Built by <a href="https://github.com/georgieslab" class="text-cyan-400 hover:underline">Georgie Akopashvili</a>.
   </footer>
 
   <script>
-    // Tab switching
+    // 4 Brands Database
+    const brandData = {
+      'solaris-fintech': {
+        name: 'solaris-fintech',
+        displayName: 'Solaris Fintech',
+        icon: '🏛️',
+        banned: ["guaranteed", "moon", "easy money", "risk-free", "get rich quick", "100% returns"],
+        palettes: [
+          { name: 'Obsidian Deep', hex: '#0B0F19' },
+          { name: 'High-Yield Cyan', hex: '#06B6D4' },
+          { name: 'Pure Titanium', hex: '#F8FAFC' },
+          { name: 'Precision Amber', hex: '#F59E0B' }
+        ],
+        concept: "Monolithic quantitative data center terminal",
+        passDraft: "Solaris provides verifiable algorithmic execution infrastructure with institutional-grade custody. Our telemetry endpoints offer real-time latency reporting.",
+        failDraft: "Join Solaris Fintech today! Guaranteed easy money with 100% returns. We are going to the moon with risk-free algorithmic yield!",
+        passRewrite: "Solaris engineers transparent, cryptographically verifiable execution algorithms purpose-built for institutional quantitative trading. Every layer is audited and accountable.",
+        failRewrite: "Solaris deploys institutional-grade capital execution infrastructure with verifiable mathematical risk models and audited custodian settlement.",
+        lighting: "Architectural daylight (5000K); Obsidian Deep (#0B0F19), High-Yield Cyan (#06B6D4), Pure Titanium (#F8FAFC)",
+        posPrompt: (c, ar) => `Monolithic titanium data terminal capturing ${c}, High-Yield Cyan (#06B6D4) subtle telemetry illumination, sharp architectural daylight with cool rim highlight, clean brutalist symmetry, brushed titanium and sapphire glass, 8k resolution, editorial finance photography --ar ${ar}`,
+        negPrompt: "clutter, green laser eyes, coins, neon blur, saturated rainbow, cartoon, distorted lines, 3d render gloss",
+        retDoc: `### [COLOR_PALETTE] Color Palette & Visual Tones\nBrand: Solaris Fintech (solaris-fintech)\n- Primary: Obsidian Deep (#0B0F19) - Dominant background\n- Secondary: High-Yield Cyan (#06B6D4) - Telemetry highlights\n- Neutral Light: Pure Titanium (#F8FAFC) - High contrast borders\n- Accent: Precision Amber (#F59E0B) - System warnings (< 5%)\n\n### [VOICE_AND_TONE] Voice & Tone\nAttributes: Minimalist, Authoritative, Transparent, Analytical\nDos: Use active measured verbs; Explain complex financial engineering.\nDonts: Never use FOMO or urgency tactics; Never promise fixed returns.`
+      },
+      'velvet-apothecary': {
+        name: 'velvet-apothecary',
+        displayName: 'Velvet Apothecary',
+        icon: '🌿',
+        banned: ["synthetic", "chemical peel", "miracle cure", "instant fix", "clinical grade", "anti-aging miracle"],
+        palettes: [
+          { name: 'Crushed Sage', hex: '#708238' },
+          { name: 'Terracotta Ochre', hex: '#C86D51' },
+          { name: 'Raw Linen', hex: '#F4F0EA' },
+          { name: 'Sun-Bleached Amber', hex: '#E8A858' }
+        ],
+        concept: "Midnight chamomile facial elixir bottle on raw linen",
+        passDraft: "Wildcrafted chamomile and restorative lavender harvested at twilight to nourish skin in its quietest evening hours.",
+        failDraft: "Try our miracle cure chemical peel! It is an instant fix with synthetic extracts to erase wrinkles and achieve flawless perfection.",
+        passRewrite: "Wildcrafted evening chamomile and restorative lavender harvested at twilight to nourish skin in its quietest hours.",
+        failRewrite: "Restorative evening botanical elixir crafted with slow-batch calendula and cold-pressed cold-hardy chamomile to nourish dry skin.",
+        lighting: "Golden hour diffused sunlight (3200K); Crushed Sage (#708238), Terracotta Ochre (#C86D51), Raw Linen (#F4F0EA)",
+        posPrompt: (c, ar) => `Dark amber apothecary dropper bottle capturing ${c}, handwritten botanical label on raw linen fabric with deckle-edge weave texture, dried chamomile sprigs and scattered florets, unglazed terracotta ceramic dish with golden elixir droplets, Kodak Portra 400 film emulation, macro botanical close-up shallow depth-of-field f/2.0 --ar ${ar}`,
+        negPrompt: "sterile white laboratory countertop, neon green, glossy synthetic plastic packaging, airbrushed skin, computer-generated glossy spheres, harsh clinical lighting",
+        retDoc: `### [COLOR_PALETTE] Color Palette & Visual Tones\nBrand: Velvet Apothecary (velvet-apothecary)\n- Primary: Crushed Sage (#708238) - Herbal packaging\n- Secondary: Terracotta Ochre (#C86D51) - Warm clay accents\n- Neutral Light: Raw Linen (#F4F0EA) - Editorial negative space\n\n### [VOICE_AND_TONE] Voice & Tone\nAttributes: Poetic, Warm, Sensory, Grounded, Reverent\nDos: Evoke sensory tactile details; Honor seasonality and slow rituals.\nDonts: Never use harsh clinical anti-aging language; Never refer to skin flaws.`
+      },
+      'lumina-automotive': {
+        name: 'lumina-automotive',
+        displayName: 'Lumina Automotive',
+        icon: '⚡',
+        banned: ["gas guzzler", "cheap", "affordable", "family car", "range anxiety", "economy sedan"],
+        palettes: [
+          { name: 'Nordic Frost', hex: '#E2E8F0' },
+          { name: 'Electric Cobalt', hex: '#2563EB' },
+          { name: 'Forged Carbon', hex: '#0F172A' },
+          { name: 'Kinetic Lime', hex: '#84CC16' }
+        ],
+        concept: "Solid-state aerodynamic hypercar on wet twilight tarmac",
+        passDraft: "Lumina unveils solid-state battery architecture achieving 1.8G lateral downforce through active computational aerodynamics.",
+        failDraft: "Check out our cheap affordable family car with zero range anxiety! A great budget friendly daily commuter.",
+        passRewrite: "Lumina architects solid-state electric performance engineered through computational fluid dynamics and uncompromising aerodynamic downforce.",
+        failRewrite: "Lumina engineers uncompromised solid-state performance with high-density cell thermodynamics and active aerodynamic downforce.",
+        lighting: "Moody Nordic twilight (4000K); Nordic Frost (#E2E8F0), Electric Cobalt (#2563EB), Forged Carbon (#0F172A)",
+        posPrompt: (c, ar) => `Scandinavian electric hypercar capturing ${c}, wet asphalt ground reflections, wind tunnel neon vapor streamlines slicing across dry carbon weave, razor-thin laser DRL lightbars, raindrops on active aero wing, cinematic anamorphic 8k photography --ar ${ar}`,
+        negPrompt: "sunny picnic, suburban garage, cartoon, cheap plastic, lightning bolts, oversaturated colors",
+        retDoc: `### [COLOR_PALETTE] Color Palette & Visual Tones\nBrand: Lumina Automotive (lumina-automotive)\n- Primary: Nordic Frost (#E2E8F0) - Hypercar exterior\n- Secondary: Electric Cobalt (#2563EB) - Aero flow accents\n- Dark Base: Forged Carbon (#0F172A) - Monocoque undertray\n\n### [VOICE_AND_TONE] Voice & Tone\nAttributes: Kinetic, Aerodynamic, Architectural, Visceral\nDos: Emphasize downforce coefficients and solid-state cell thermodynamics.\nDonts: Never use pedestrian terms like 'cheap', 'affordable', or 'range anxiety'.`
+      },
+      'aether-gaming': {
+        name: 'aether-gaming',
+        displayName: 'Aether Gaming',
+        icon: '🎮',
+        banned: ["lag", "casual", "childish", "slow", "pay-to-win", "toy", "clunky", "button masher"],
+        palettes: [
+          { name: 'Matte Carbon', hex: '#09090B' },
+          { name: 'Quantum Magenta', hex: '#E11D48' },
+          { name: 'Neon Cyan', hex: '#00F0FF' },
+          { name: 'Void Violet', hex: '#581C87' }
+        ],
+        concept: "8000Hz optical esports mouse with exploded magnesium chassis",
+        passDraft: "Aether Apex delivers sub-millisecond optical switch actuation with 8000Hz polling rate for flawless tournament reflex.",
+        failDraft: "A fun childish toy for casual button masher gamers! No laggy clunky slow response, just pay-to-win play.",
+        passRewrite: "Aether Apex integrates zero-debounce optical switches with an 8000Hz polling rate engineered exclusively for tier-1 digital athletes.",
+        failRewrite: "Aether Apex delivers 0.125ms optical switch actuation with pure human reflex tracking inside a 42-gram cast magnesium chassis.",
+        lighting: "Cyberpunk arena lighting; Matte Carbon (#09090B), Quantum Magenta (#E11D48), Neon Cyan (#00F0FF)",
+        posPrompt: (c, ar) => `Macro mechanical exploded view capturing ${c}, dark matte magnesium honeycomb chassis, glowing optical infrared prism sensors, arena tournament smoke, neon cyan rim edge illumination, cinematic macro tech photography --ar ${ar}`,
+        negPrompt: "childish toy, bedroom clutter, cartoon pizza, cheap injection plastic, gaudy RGB rainbow",
+        retDoc: `### [COLOR_PALETTE] Color Palette & Visual Tones\nBrand: Aether Gaming (aether-gaming)\n- Primary: Matte Carbon (#09090B) - Magnesium shell\n- Secondary: Quantum Magenta (#E11D48) - Switch accents\n- Accent: Neon Cyan (#00F0FF) - Optical sensor highlight\n\n### [VOICE_AND_TONE] Voice & Tone\nAttributes: High-Adrenaline, Kinetic, Cybernetic, Uncompromising\nDos: Focus on 8000Hz polling, optical latency, and magnesium weight reduction.\nDonts: Never describe as 'toys' or 'casual'; Never use words like 'laggy' or 'slow'.`
+      }
+    };
+
+    let currentBrand = 'solaris-fintech';
+    let currentAspectRatio = '16:9';
+
+    function selectGlobalBrand(brandKey) {
+      currentBrand = brandKey;
+      const b = brandData[brandKey];
+
+      // Update switcher buttons
+      ['solaris', 'velvet', 'lumina', 'aether'].forEach(k => {
+        const btn = document.getElementById(`btn-brand-${k}`);
+        const fullKey = k === 'solaris' ? 'solaris-fintech' : k === 'velvet' ? 'velvet-apothecary' : k === 'lumina' ? 'lumina-automotive' : 'aether-gaming';
+        if (fullKey === brandKey) {
+          btn.className = "brand-btn px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 transition-all flex items-center gap-2 shadow-sm";
+        } else {
+          btn.className = "brand-btn px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition-all flex items-center gap-2";
+        }
+      });
+
+      // Update UI displays
+      document.getElementById('lint-client-name').innerText = b.name;
+      document.getElementById('ret-client-display').innerText = b.name;
+      document.getElementById('vis-concept').value = b.concept;
+
+      applyPreset('pass');
+      simulateVisual();
+      simulateRetrieve();
+      showToast(`Switched active brand to ${b.displayName}`);
+    }
+
     function switchTab(tab) {
-      ['lint', 'visual', 'retrieve'].forEach(t => {
+      ['lint', 'visual', 'retrieve', 'terminal'].forEach(t => {
         const btn = document.getElementById(`tab-${t}`);
         const view = document.getElementById(`view-${t}`);
         if (t === tab) {
@@ -409,130 +797,154 @@
       if (tab === 'retrieve') simulateRetrieve();
     }
 
-    // Presets
-    const presets = {
-      'solaris-fintech': {
-        pass: "Solaris provides verifiable algorithmic execution infrastructure with institutional-grade custody. Our telemetry endpoints offer real-time latency reporting.",
-        fail: "Join Solaris Fintech today! Guaranteed easy money with 100% returns. We are going to the moon with risk-free algorithmic yield!"
-      },
-      'velvet-apothecary': {
-        pass: "Wildcrafted chamomile and restorative lavender harvested at twilight to nourish skin in its quietest evening hours.",
-        fail: "Try our miracle cure chemical peel! It is an instant fix with synthetic extracts to erase wrinkles and achieve flawless perfection."
-      }
-    };
-
-    function updateLintPresets() {
-      applyPreset('pass');
-    }
-
     function applyPreset(type) {
-      const client = document.getElementById('lint-client').value;
-      document.getElementById('lint-input').value = presets[client][type];
+      const b = brandData[currentBrand];
+      const text = type === 'pass' ? b.passDraft : b.failDraft;
+      document.getElementById('lint-input').value = text;
+      updateCharCount();
+      simulateLint();
     }
 
-    // Initialize preset
-    applyPreset('pass');
+    function updateCharCount() {
+      const len = document.getElementById('lint-input').value.length;
+      document.getElementById('draft-char-count').innerText = `${len} chars`;
+    }
 
     function simulateLint() {
-      const client = document.getElementById('lint-client').value;
+      const b = brandData[currentBrand];
       const text = document.getElementById('lint-input').value;
       const lower = text.toLowerCase();
 
-      const bannedSolaris = ["guaranteed", "moon", "easy money", "risk-free", "get rich quick", "100% returns"];
-      const bannedVelvet = ["synthetic", "chemical peel", "miracle cure", "instant fix", "clinical grade", "anti-aging miracle"];
-
-      const targetBanned = client === 'solaris-fintech' ? bannedSolaris : bannedVelvet;
-      const found = targetBanned.filter(w => lower.includes(w));
-
-      const statusBadge = document.getElementById('lint-status-badge');
-      const scoreEl = document.getElementById('lint-score');
+      const found = b.banned.filter(w => lower.includes(w));
+      const circleBar = document.getElementById('score-circle-bar');
+      const scoreNum = document.getElementById('lint-score-number');
+      const badge = document.getElementById('lint-status-badge');
+      const summaryLabel = document.getElementById('lint-summary-label');
       const tagsEl = document.getElementById('lint-banned-tags');
       const analysisEl = document.getElementById('lint-analysis');
       const rewriteEl = document.getElementById('lint-rewrite');
 
+      const circumference = 175.9; // 2 * pi * 28
+
       if (found.length > 0) {
-        statusBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-rose-950 text-rose-300 border border-rose-600/50";
-        statusBadge.innerText = "FAIL";
-        scoreEl.className = "font-mono text-xl font-extrabold text-rose-400";
-        scoreEl.innerText = "35/100";
+        // FAIL
+        const score = 35;
+        const offset = circumference - (circumference * score / 100);
+        circleBar.style.strokeDashoffset = offset;
+        circleBar.className = "text-rose-400 fill-none score-circle";
+        scoreNum.className = "absolute font-mono text-sm font-extrabold text-rose-400";
+        scoreNum.innerText = "35";
 
-        tagsEl.innerHTML = found.map(w => `<span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-700/60 text-rose-300 text-xs font-mono">⚠️ "${w}"</span>`).join(' ');
-        analysisEl.innerText = `Draft contains strictly prohibited regulatory terms: [${found.join(', ')}]. In ${client}, these violate brand compliance and constitute unauthorized speculative claims.`;
-        rewriteEl.innerText = client === 'solaris-fintech'
-          ? "Solaris deploys institutional-grade capital execution infrastructure with verifiable mathematical risk models and audited custodian settlement."
-          : "Restorative evening botanical elixir crafted with slow-batch calendula and cold-pressed cold-hardy chamomile to nourish dry skin.";
+        badge.className = "px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-rose-950 text-rose-300 border border-rose-600/50";
+        badge.innerText = "FAIL";
+        summaryLabel.innerText = "Regulatory violation detected";
+
+        tagsEl.innerHTML = found.map(w => `<span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-700/60 text-rose-300 text-xs font-mono font-semibold">⚠️ "${w}"</span>`).join(' ');
+        analysisEl.innerText = `Severe compliance violation in ${b.displayName}. The draft contains prohibited terms [${found.join(', ')}] which constitute unauthorized claims and violate brand governance rules.`;
+        rewriteEl.innerText = b.failRewrite;
       } else {
-        statusBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-600/50";
-        statusBadge.innerText = "PASS";
-        scoreEl.className = "font-mono text-xl font-extrabold text-emerald-400";
-        scoreEl.innerText = "94/100";
+        // PASS
+        const score = 94;
+        const offset = circumference - (circumference * score / 100);
+        circleBar.style.strokeDashoffset = offset;
+        circleBar.className = "text-emerald-400 fill-none score-circle";
+        scoreNum.className = "absolute font-mono text-sm font-extrabold text-emerald-400";
+        scoreNum.innerText = "94";
 
-        tagsEl.innerHTML = `<span class="text-xs font-mono text-emerald-400 font-semibold">✓ 0 forbidden terms detected</span>`;
-        analysisEl.innerText = `Exemplary adherence to ${client} voice guidelines. Direct syntax, authoritative terminology, and clear regulatory posture matching target audience.`;
-        rewriteEl.innerText = client === 'solaris-fintech'
-          ? "Solaris engineers transparent, cryptographically verifiable execution algorithms purpose-built for institutional quantitative trading."
-          : "Wildcrafted evening chamomile and restorative lavender harvested at twilight to nourish skin in its quietest hours.";
+        badge.className = "px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-600/50";
+        badge.innerText = "PASS";
+        summaryLabel.innerText = "Exemplary voice alignment";
+
+        tagsEl.innerHTML = `<span class="text-xs font-mono text-emerald-400 font-semibold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">✓ 0 forbidden terms detected</span>`;
+        analysisEl.innerText = `High adherence to ${b.displayName} tone guidelines. Clear syntax, authoritative terminology, and appropriate channel framing.`;
+        rewriteEl.innerText = b.passRewrite;
       }
     }
 
-    function updateVisualConcept() {
-      const client = document.getElementById('vis-client').value;
-      document.getElementById('vis-concept').value = client === 'solaris-fintech'
-        ? "Monolithic quantitative data center terminal"
-        : "Midnight chamomile facial elixir bottle on raw linen";
+    function setVisualPlatform(plat, ar) {
+      currentAspectRatio = ar;
+      ['instagram', 'linkedin', 'packaging', 'hero'].forEach(p => {
+        const btn = document.getElementById(`ar-btn-${p}`);
+        if (p === plat || (p === 'hero' && plat === 'hero-banner')) {
+          btn.className = "ar-btn p-2 text-center rounded-lg bg-cyan-950 border border-cyan-700 text-cyan-300 text-xs font-mono font-semibold";
+        } else {
+          btn.className = "ar-btn p-2 text-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono hover:border-slate-700";
+        }
+      });
       simulateVisual();
     }
 
     function simulateVisual() {
-      const client = document.getElementById('vis-client').value;
+      const b = brandData[currentBrand];
       const concept = document.getElementById('vis-concept').value;
-      const platform = document.getElementById('vis-platform').value;
 
-      const arMap = { instagram: '4:5', linkedin: '16:9', packaging: '1:1', 'hero-banner': '16:9' };
-      document.getElementById('vis-ar').innerText = arMap[platform] || '16:9';
+      document.getElementById('vis-positive').innerText = b.posPrompt(concept, currentAspectRatio);
+      document.getElementById('vis-negative').innerText = b.negPrompt;
+      document.getElementById('vis-lighting').innerText = b.lighting;
 
-      if (client === 'solaris-fintech') {
-        document.getElementById('vis-positive').innerText = `Monolithic titanium data terminal capturing ${concept}, High-Yield Cyan (#06B6D4) subtle telemetry illumination, sharp architectural daylight with cool rim highlight, clean brutalist symmetry, brushed titanium and sapphire glass, 8k resolution, editorial finance photography`;
-        document.getElementById('vis-negative').innerText = `clutter, green laser eyes, coins, neon blur, saturated rainbow, cartoon, distorted lines, 3d render gloss`;
-        document.getElementById('vis-lighting').innerText = `Architectural daylight (5000K); Obsidian Deep (#0B0F19), High-Yield Cyan (#06B6D4), Pure Titanium (#F8FAFC)`;
-      } else {
-        document.getElementById('vis-positive').innerText = `Dark amber apothecary dropper bottle capturing ${concept}, handwritten botanical label on raw linen fabric with deckle-edge weave texture, dried chamomile sprigs and scattered florets, unglazed terracotta ceramic dish with golden elixir droplets, Kodak Portra 400 film emulation, macro botanical close-up shallow depth-of-field f/2.0`;
-        document.getElementById('vis-negative').innerText = `sterile white laboratory countertop, neon green, glossy synthetic plastic packaging, airbrushed skin, computer-generated glossy spheres, harsh clinical lighting`;
-        document.getElementById('vis-lighting').innerText = `Golden hour diffused sunlight (3200K); Crushed Sage (#708238), Terracotta Ochre (#C86D51), Raw Linen (#F4F0EA)`;
-      }
+      // Render clickable swatches
+      const swatchesEl = document.getElementById('vis-swatches');
+      swatchesEl.innerHTML = b.palettes.map(p => `
+        <button onclick="copySwatch('${p.hex}')" class="flex items-center gap-2 bg-slate-900 border border-slate-800 hover:border-slate-600 px-3 py-1.5 rounded-lg transition-all group">
+          <span class="w-4 h-4 rounded-full border border-slate-700 shadow-sm" style="background-color: ${p.hex}"></span>
+          <span class="text-xs font-mono text-slate-300 group-hover:text-cyan-300">${p.name}</span>
+          <span class="text-xs font-mono text-slate-500">${p.hex}</span>
+        </button>
+      `).join('');
     }
 
     function simulateRetrieve() {
-      const client = document.getElementById('ret-client').value;
-      const query = document.getElementById('ret-query').value;
+      const b = brandData[currentBrand];
+      document.getElementById('ret-output').innerText = b.retDoc;
+    }
 
-      if (client === 'solaris-fintech') {
-        document.getElementById('ret-output').innerText = `### [COLOR_PALETTE] Color Palette & Visual Tones
-Brand: Solaris Fintech (solaris-fintech) Color System:
-- Primary: Obsidian Deep (#0B0F19) - Dominant background, executive presentation canvas.
-- Secondary: High-Yield Cyan (#06B6D4) - Data highlights, telemetry visualizers, interaction points.
-- Neutral Light: Pure Titanium (#F8FAFC) - Text on dark backgrounds, clean layout structure.
-- Accent: Precision Amber (#F59E0B) - System warnings, latency indicators (< 5%).
+    function simulateLiveWire() {
+      const b = brandData[currentBrand];
+      document.getElementById('wire-request').innerText = JSON.stringify({
+        jsonrpc: "2.0",
+        id: Math.floor(Math.random() * 1000),
+        method: "tools/call",
+        params: {
+          name: "lint_brand_compliance",
+          arguments: {
+            client_id: b.name,
+            draft_text: b.passDraft
+          }
+        }
+      }, null, 2);
 
-### [VOICE_AND_TONE] Voice, Tone & Identity
-Brand: Solaris Fintech (solaris-fintech)
-Primary Voice Attributes: Minimalist, Authoritative, Transparent, Analytical, Precise
-Dos: Use active, measured verbs; Explain complex financial engineering; Emphasize risk parameters.
-Donts: Never use FOMO or urgency tactics; Never promise fixed returns; Avoid exclamation marks.`;
-      } else {
-        document.getElementById('ret-output').innerText = `### [COLOR_PALETTE] Color Palette & Visual Tones
-Brand: Velvet Apothecary (velvet-apothecary) Color System:
-- Primary: Crushed Sage (#708238) - Primary brand tint, herbal formulation packaging.
-- Secondary: Terracotta Ochre (#C86D51) - Warm clay accents, secondary headlines, ritual ceramic highlights.
-- Neutral Light: Raw Linen (#F4F0EA) - Editorial page background, tactile paper texture.
-- Warm Highlight: Sun-Bleached Amber (#E8A858) - Elixir droplet reflections, golden hour sunlight glows.
+      document.getElementById('wire-response').innerText = JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        result: {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify({
+                score: 94,
+                status: "PASS",
+                forbidden_terms_found: [],
+                tone_drift_analysis: `High compliance with ${b.displayName} rules.`
+              }, null, 2)
+            }
+          ]
+        }
+      }, null, 2);
+      showToast("Sent simulated MCP stdio packet");
+    }
 
-### [VOICE_AND_TONE] Voice, Tone & Identity
-Brand: Velvet Apothecary (velvet-apothecary)
-Primary Voice Attributes: Poetic, Warm, Sensory, Grounded, Reverent, Tactile
-Dos: Evoke sensory tactile details; Frame skincare as restorative daily rituals; Honor seasonality.
-Donts: Never use harsh clinical anti-aging language; Never refer to skin flaws; Avoid buzzwords.`;
-      }
+    function copyRewrite() {
+      const text = document.getElementById('lint-rewrite').innerText;
+      navigator.clipboard.writeText(text).then(() => showToast("Copied rewrite to clipboard!"));
+    }
+
+    function copyVisualPrompt() {
+      const text = document.getElementById('vis-positive').innerText;
+      navigator.clipboard.writeText(text).then(() => showToast("Copied Midjourney prompt to clipboard!"));
+    }
+
+    function copySwatch(hex) {
+      navigator.clipboard.writeText(hex).then(() => showToast(`Copied color ${hex} to clipboard!`));
     }
 
     function copyConfig() {
@@ -541,8 +953,21 @@ Donts: Never use harsh clinical anti-aging language; Never refer to skin flaws; 
         const btn = document.getElementById('copy-btn');
         btn.innerText = "Copied!";
         setTimeout(() => btn.innerText = "Copy JSON", 2000);
+        showToast("Copied mcp_config.json to clipboard!");
       });
     }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    // Initialize default brand
+    selectGlobalBrand('solaris-fintech');
   </script>
 </body>
 </html>
