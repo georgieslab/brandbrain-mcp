@@ -1,6 +1,6 @@
 name: Deploy Landing Page to GitHub Pages
 
-on:
+'on':
   push:
     branches:
       - main
