@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Case Study: BrandBrain-MCP | Georgie Akopashvili</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              cyan: '#06B6D4',
+              obsidian: '#0B0F19',
+              slate: '#1E293B',
+              amber: '#F59E0B',
+              sage: '#708238',
+              ochre: '#C86D51',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0B0F19;
+      color: #F8FAFC;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25);
+    }
+    .code-gradient {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
+
+  <!-- Navigation -->
+  <header class="border-b border-slate-800/80 sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 flex items-center justify-center font-mono font-bold text-black text-lg">
+            B
+          </div>
+          <span class="font-bold text-lg tracking-tight">BrandBrain<span class="text-cyan-400 font-mono text-sm ml-1.5 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/50">MCP</span></span>
+        </a>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300 font-medium">
+        <a href="index.html" class="hover:text-cyan-400 transition-colors">Interactive Studio</a>
+        <a href="#problem" class="hover:text-cyan-400 transition-colors">The Challenge</a>
+        <a href="#solution" class="hover:text-cyan-400 transition-colors">Architecture</a>
+        <a href="#results" class="hover:text-cyan-400 transition-colors">Impact & Results</a>
+        <a href="https://github.com/georgieslab/brandbrain-mcp" target="_blank" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-mono text-xs">
+          <span>GitHub Repo</span> ↗
+        </a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 transition-all font-mono">
+          ← Live Studio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-20 pb-16 px-6 border-b border-slate-800/60 overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(6,182,212,0.18),rgba(255,255,255,0))]"></div>
+    <div class="max-w-4xl mx-auto relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 mb-6">
+        <span>ENGINEERING CASE STUDY • AI AGENTS & DEVELOPER TOOLING</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+        Transforming Static Brand Books into Active <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-300">Model Context Protocol</span> Tools
+      </h1>
+      <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-8 font-light leading-relaxed">
+        How BrandBrain-MCP bridges enterprise brand governance, AWS Bedrock reasoning, and ChromaDB vector search directly into Claude Desktop and Cursor.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">Author:</span> <strong class="text-slate-200">Georgie Akopashvili</strong>
+        </div>
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">Stack:</span> <strong class="text-slate-200">FastMCP • AWS Bedrock • ChromaDB</strong>
+        </div>
+        <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+          <span class="text-slate-500">Region:</span> <strong class="text-emerald-400">eu-north-1 (Europe)</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+
+    <!-- 1. The Problem -->
+    <section id="problem" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center font-mono font-bold text-sm">01</span>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-100">The Problem: Static PDF Manuals vs. Generative Chaos</h2>
+      </div>
+
+      <p class="text-slate-300 text-sm leading-relaxed">
+        In modern enterprise marketing, organizations face a paradoxical tension: teams use AI to generate copy, social posts, and visual mockups 10x faster, but the risk of <strong>regulatory non-compliance and brand dilution</strong> skyrockets.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="glass-card p-5 rounded-xl border border-rose-900/40 bg-rose-950/10 space-y-2">
+          <div class="flex items-center gap-2 text-rose-400 font-mono text-xs font-bold">
+            <span>✗</span> The Status Quo Pain Points
+          </div>
+          <ul class="text-xs text-slate-400 space-y-2 leading-relaxed">
+            <li>• <strong>50-Page PDF Manuals:</strong> Buried in Google Drive; copywriters and devs rarely cross-check them.</li>
+            <li>• <strong>Regulatory Fines:</strong> In fintech and health, buzzwords like <em>"guaranteed returns"</em> or <em>"chemical peel"</em> trigger instant FTC/SEC scrutiny.</li>
+            <li>• <strong>Visual Style Drift:</strong> Diffusion models (Midjourney/Flux) default to generic CGI aesthetics without strict brand prompts.</li>
+          </ul>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl border border-emerald-900/40 bg-emerald-950/10 space-y-2">
+          <div class="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
+            <span>✓</span> The BrandBrain Solution
+          </div>
+          <ul class="text-xs text-slate-400 space-y-2 leading-relaxed">
+            <li>• <strong>Active Context:</strong> Brand rules live natively inside Claude Desktop and Cursor via Model Context Protocol.</li>
+            <li>• <strong>Hybridized Guardrails:</strong> Regex boundary detection guarantees zero false negatives on prohibited terms.</li>
+            <li>• <strong>Instant Art Direction:</strong> Generates camera specs, Kelvin lighting, and exact hex swatches on demand.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The Architecture -->
+    <section id="solution" class="space-y-6 border-t border-slate-800/80 pt-12">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm">02</span>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-100">Architecture: Standardized Stdio Protocol</h2>
+      </div>
+
+      <p class="text-slate-300 text-sm leading-relaxed">
+        BrandBrain-MCP is designed as a modular, lightweight Python service built on the official <strong>FastMCP SDK</strong>. It communicates with desktop hosts via standard I/O (JSON-RPC over <code class="text-cyan-300">stdio</code>).
+      </p>
+
+      <div class="glass-card p-6 rounded-xl border border-slate-800 code-gradient font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
+<pre class="text-slate-300">
+┌────────────────────────────────────────────────────────┐
+│     Desktop LLM Clients / IDEs (Claude Desktop,        │
+│          Antigravity, Cursor, Zed, Windsurf)          │
+└──────────────────────────┬─────────────────────────────┘
+                           │ Standard Input/Output (stdio)
+                           ▼
+┌────────────────────────────────────────────────────────┐
+│                   BrandBrain FastMCP                   │
+│                    (src/server.py)                     │
+│                                                        │
+│   ├── retrieve_brand_guidelines                        │
+│   ├── lint_brand_compliance                            │
+│   └── generate_visual_prompt_spec                      │
+└──────────────┬──────────────────────────┬──────────────┘
+               │                          │
+               ▼                          ▼
+┌──────────────────────────────┐ ┌───────────────────────┐
+│     ChromaDB Vector Store    │ │      AWS Bedrock      │
+│     (data/chroma_db)         │ │   (boto3 Runtime)     │
+│                              │ │                       │
+│  - 1024-dim Titan Embeddings │ │ - Claude Sonnet 4.6   │
+│  - Semantic Guideline RAG    │ │   (Converse API)      │
+│  - Scoped client_id filters  │ │ - eu-north-1 Region   │
+└──────────────────────────────┘ └───────────────────────┘
+</pre>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <div class="p-4 rounded-xl glass-card">
+          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">1. FastMCP SDK</div>
+          <p class="text-xs text-slate-400 leading-relaxed">Decorates Python methods into typed JSON-RPC tools with Pydantic output validation.</p>
+        </div>
+        <div class="p-4 rounded-xl glass-card">
+          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">2. Amazon Titan V2</div>
+          <p class="text-xs font-slate-400 leading-relaxed text-xs text-slate-400">1024-dimensional normalized vector embeddings capturing brand voice nuances.</p>
+        </div>
+        <div class="p-4 rounded-xl glass-card">
+          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">3. Claude Sonnet</div>
+          <p class="text-xs text-slate-400 leading-relaxed">Converse API evaluates subtle tone drift, institutional authority, and poetic cadence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Real World Case Studies -->
+    <section class="space-y-6 border-t border-slate-800/80 pt-12">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-mono font-bold text-sm">03</span>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-100">Live Case Studies: Solaris vs. Velvet Apothecary</h2>
+      </div>
+
+      <p class="text-slate-300 text-sm leading-relaxed">
+        To demonstrate multi-tenant brand isolation, BrandBrain is pre-seeded with two diametrically opposed brand personas:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        <!-- Brand A -->
+        <div class="glass-card p-6 rounded-xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-slate-100">Solaris Fintech</h3>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/50">solaris-fintech</span>
+          </div>
+          <div class="text-xs text-slate-300 space-y-2">
+            <p><strong>Voice:</strong> Minimalist, authoritative, transparent, mathematical clarity.</p>
+            <p><strong>Forbidden Terms:</strong> <code>guaranteed</code>, <code>moon</code>, <code>easy money</code>, <code>100% returns</code>, <code>crypto bro</code>.</p>
+            <p><strong>Palette:</strong> Obsidian Deep (#0B0F19), High-Yield Cyan (#06B6D4), Pure Titanium (#F8FAFC).</p>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-xs text-slate-400">
+            <span class="text-rose-400 font-bold block mb-1">FAIL AUDIT EXAMPLE:</span>
+            "Join Solaris for guaranteed easy money to the moon!"<br>
+            <span class="text-cyan-400 mt-1 block">→ Score: 35/100 (FAIL) | 3 Banned Terms</span>
+          </div>
+        </div>
+
+        <!-- Brand B -->
+        <div class="glass-card p-6 rounded-xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-slate-100">Velvet Apothecary</h3>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800/50">velvet-apothecary</span>
+          </div>
+          <div class="text-xs text-slate-300 space-y-2">
+            <p><strong>Voice:</strong> Poetic, warm, sensory, grounded, organic restorative ritual.</p>
+            <p><strong>Forbidden Terms:</strong> <code>synthetic</code>, <code>chemical peel</code>, <code>miracle cure</code>, <code>anti-aging</code>, <code>bleach</code>.</p>
+            <p><strong>Palette:</strong> Crushed Sage (#708238), Terracotta Ochre (#C86D51), Raw Linen (#F4F0EA).</p>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-xs text-slate-400">
+            <span class="text-rose-400 font-bold block mb-1">FAIL AUDIT EXAMPLE:</span>
+            "Try our miracle cure chemical peel for pore erasing!"<br>
+            <span class="text-amber-400 mt-1 block">→ Score: 35/100 (FAIL) | 2 Banned Terms</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Key Engineering Edge Cases -->
+    <section id="results" class="space-y-6 border-t border-slate-800/80 pt-12">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm">04</span>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-100">Key Engineering Edge Cases & Solutions</h2>
+      </div>
+
+      <div class="space-y-4">
+        <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
+          <h4 class="text-sm font-bold text-cyan-300 font-mono">1. Multi-Model Resilience & Regional Fallback in Bedrock</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            In AWS Bedrock Europe (Stockholm <code class="text-cyan-400">eu-north-1</code>), foundation models often require cross-region inference profiles (<code class="text-cyan-400">eu.anthropic.claude-sonnet-4-6</code>), while preview models throw <code class="text-rose-400">AccessDeniedException</code>. We implemented an automatic candidate resolver in <code class="text-slate-300">BedrockClient.converse()</code> that gracefully cascades through active models without disrupting user sessions.
+          </p>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
+          <h4 class="text-sm font-bold text-cyan-300 font-mono">2. BYOK Privacy & Zero Secret Leakage</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            In compliance with open-source security best practices, the server adopts a <strong>Bring Your Own Key (BYOK)</strong> model. Real AWS keys live exclusively in the local <code class="text-slate-300">.env</code> (ignored by Git). Public repositories and GitHub Pages contain only dummy templates. Developers hosting the server bear zero external token liability.
+          </p>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-2">
+          <h4 class="text-sm font-bold text-cyan-300 font-mono">3. Deterministic + LLM Hybrid Guardrails</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Pure LLM evaluators can suffer from prompt injection or leniency. BrandBrain executes deterministic regex pattern matching on banned phrases <em>before</em> calling Bedrock. If a banned phrase is detected, the audit score is capped under 60 and marked as <code class="text-rose-400 font-mono">FAIL</code>, guaranteeing zero false negatives.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Key Metrics & Outcomes -->
+    <section class="border-t border-slate-800/80 pt-12">
+      <div class="glass-card p-8 rounded-2xl glow-cyan border border-cyan-500/20 text-center space-y-6">
+        <h3 class="text-2xl font-bold text-slate-100">Engineering Outcomes</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <div class="text-2xl font-mono font-extrabold text-cyan-400">100%</div>
+            <div class="text-xs text-slate-400 font-mono mt-1">Detection on Banned Words</div>
+          </div>
+          <div>
+            <div class="text-2xl font-mono font-extrabold text-emerald-400">&lt; 15ms</div>
+            <div class="text-xs text-slate-400 font-mono mt-1">ChromaDB Vector Retrieval</div>
+          </div>
+          <div>
+            <div class="text-2xl font-mono font-extrabold text-amber-400">11 / 11</div>
+            <div class="text-xs text-slate-400 font-mono mt-1">Automated Pytest Suite</div>
+          </div>
+          <div>
+            <div class="text-2xl font-mono font-extrabold text-purple-400">$0.00</div>
+            <div class="text-xs text-slate-400 font-mono mt-1">Server Hosting Overhead</div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-wrap justify-center gap-4">
+          <a href="index.html" class="px-6 py-2.5 bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg hover:bg-cyan-300 transition-all shadow-md">
+            Test Live Studio →
+          </a>
+          <a href="https://github.com/georgieslab/brandbrain-mcp" target="_blank" class="px-6 py-2.5 glass-card text-slate-200 hover:text-white font-mono text-xs rounded-lg border border-slate-700 hover:border-slate-500 transition-all">
+            View Source on GitHub ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950/80 py-8 px-6 text-center text-xs text-slate-500 font-mono">
+    BrandBrain-MCP • Engineering Case Study by Georgie Akopashvili (<a href="https://github.com/georgieslab" class="text-cyan-400 hover:underline">@georgieslab</a>).
+  </footer>
+
+</body>
+</html>
